@@ -27,3 +27,14 @@ def hasEqHeads(l1, l2):
     assert isinstance(l2, list)
 
     return l1[0] == l2[0]
+
+'''
+Escreva uma função que receba uma lista de nomes e retorne uma lista com a string "Sr. " adicionada ao início de
+cada nome. Defina uma função auxiliar para ajudar neste exercício.
+'''
+
+
+def nomeia(nomes):
+    # caracteres acentuados saem errado
+    assert isinstance(nomes, list)
+    return map(lambda x: "Sr. " + str(x), nomes)
