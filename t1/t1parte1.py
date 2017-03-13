@@ -37,4 +37,14 @@ cada nome. Defina uma função auxiliar para ajudar neste exercício.
 def nomeia(nomes):
     # caracteres acentuados saem errado
     assert isinstance(nomes, list)
-    return map(lambda x: "Sr. " + str(x), nomes)
+    return list(map(lambda x: "Sr. " + str(x), nomes))
+
+'''
+Crie uma função que receba uma string e retorne o número de espaços nela contidos.
+Defina uma função auxiliar para ajudar neste exercício.
+'''
+
+
+def countSpaces(string):
+    assert isinstance(string, str)
+    return len(list(filter(lambda x: x == ' ', string)))
