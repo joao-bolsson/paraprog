@@ -28,6 +28,7 @@ def hasEqHeads(l1, l2):
 
     return l1[0] == l2[0]
 
+
 '''
 3) Escreva uma função que receba uma lista de nomes e retorne uma lista com a string "Sr. " adicionada ao início de
 cada nome. Defina uma função auxiliar para ajudar neste exercício.
@@ -38,6 +39,7 @@ def nomeia(nomes):
     # caracteres acentuados saem errado
     assert isinstance(nomes, list)
     return list(map(lambda x: "Sr. " + str(x), nomes))
+
 
 '''
 4) Crie uma função que receba uma string e retorne o número de espaços nela contidos.
@@ -58,7 +60,8 @@ Defina uma função auxiliar para ajudar neste exercício.
 
 def applyFormula(numbers):
     assert isinstance(numbers, list)
-    return list(map(lambda x: (3*x*2) + (2/x) + 1, numbers))
+    return list(map(lambda x: (3 * x * 2) + (2 / x) + 1, numbers))
+
 
 '''
 6) Escreva uma função que, dada uma lista de números, retorne uma lista com apenas os que forem negativos.
@@ -91,3 +94,17 @@ Defina uma função auxiliar para ajudar neste exercício.
 def filterEven(numbers):
     assert isinstance(numbers, list)
     return list(filter(lambda x: x % 2 == 0, numbers))
+
+
+'''
+9) Crie uma função charFound(c,s) que verifique se o caracter c está contido na string. O resultado deve ser True ou
+False. Você não deve usar o operador in. Defina uma função auxiliar para ajudar neste exercício.
+'''
+
+
+def charFound(c, s):
+    assert isinstance(c, str)
+    assert isinstance(s, str)
+    # TODO: retornar true assim que encontrar o valor procurado
+    result = list(filter(lambda x: str(x) == str(c), s))
+    return len(result) > 0
