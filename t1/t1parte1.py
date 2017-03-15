@@ -108,3 +108,13 @@ def charFound(c, s):
     # TODO: retornar true assim que encontrar o valor procurado
     result = list(filter(lambda x: str(x) == str(c), s))
     return len(result) > 0
+
+'''
+10) Escreva uma função que receba uma lista de strings e retorne uma nova lista com adição de marcações
+HTML (p.ex.: <B> e </B>) antes e depois de cada string.
+'''
+
+
+def toHTML(strings):
+    assert isinstance(strings, list)
+    return list(map(lambda x: '<b>' + x + '</b>', strings))
