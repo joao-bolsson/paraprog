@@ -47,7 +47,19 @@ quem nasceu depois de 1970. Para testar a condição, sua função deverá subtr
 
 def filterAges(ages):
     assert isinstance(ages, list)
-    currentYear = datetime.datetime.now().year
-    return list(filter(lambda x: (currentYear - x) > 1970, ages))
+    current_year = datetime.datetime.now().year
+    return list(filter(lambda x: (current_year - x) > 1970, ages))
 
-print(filterAges([20, 30, 51, 57]))
+'''
+5) O código abaixo é escrito em Python imperativo. Escreva um código equivalente usando programação funcional.
+numbers = [1, 2, 3, 4]
+new_numbers = []
+for number in numbers:
+ new_numbers.append(number * 2)
+print(new_numbers)
+'''
+
+
+def doubleNumbers(numbers):
+    assert isinstance(numbers, list)
+    return list(map(lambda x: x * 2, numbers))
