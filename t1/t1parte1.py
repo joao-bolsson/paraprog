@@ -23,9 +23,6 @@ def somaQuad(x, y):
 
 
 def hasEqHeads(l1, l2):
-    assert isinstance(l1, list)
-    assert isinstance(l2, list)
-
     return l1[0] == l2[0]
 
 
@@ -37,7 +34,6 @@ cada nome. Defina uma função auxiliar para ajudar neste exercício.
 
 def nomeia(nomes):
     # caracteres acentuados saem errado
-    assert isinstance(nomes, list)
     return list(map(lambda x: "Sr. " + str(x), nomes))
 
 
@@ -48,7 +44,6 @@ Defina uma função auxiliar para ajudar neste exercício.
 
 
 def countSpaces(string):
-    assert isinstance(string, str)
     return len(list(filter(lambda x: x == ' ', string)))
 
 
@@ -59,7 +54,6 @@ Defina uma função auxiliar para ajudar neste exercício.
 
 
 def applyFormula(numbers):
-    assert isinstance(numbers, list)
     return list(map(lambda x: (3 * x * 2) + (2 / x) + 1, numbers))
 
 
@@ -70,7 +64,6 @@ Defina uma função auxiliar para ajudar neste exercício.
 
 
 def filterNegatives(numbers):
-    assert isinstance(numbers, list)
     return list(filter(lambda x: x < 0, numbers))
 
 
@@ -81,7 +74,6 @@ Defina uma função auxiliar para ajudar neste exercício.
 
 
 def filterLessThan100(numbers):
-    assert isinstance(numbers, list)
     return list(filter(lambda x: (1 < x < 100), numbers))
 
 
@@ -92,7 +84,6 @@ Defina uma função auxiliar para ajudar neste exercício.
 
 
 def filterEven(numbers):
-    assert isinstance(numbers, list)
     return list(filter(lambda x: x % 2 == 0, numbers))
 
 
@@ -102,11 +93,15 @@ False. Você não deve usar o operador in. Defina uma função auxiliar para aju
 '''
 
 
+def compare(c):
+    def isTheSameChar(x):
+        return x == c
+    return isTheSameChar
+
+
 def charFound(c, s):
-    assert isinstance(c, str)
-    assert isinstance(s, str)
     # TODO: retornar true assim que encontrar o valor procurado
-    result = list(filter(lambda x: str(x) == str(c), s))
+    result = list(filter(compare(c), s))
     return len(result) > 0
 
 '''
@@ -116,5 +111,4 @@ HTML (p.ex.: <B> e </B>) antes e depois de cada string.
 
 
 def toHTML(strings):
-    assert isinstance(strings, list)
     return list(map(lambda x: '<b>' + x + '</b>', strings))

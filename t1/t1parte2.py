@@ -7,7 +7,6 @@ Parte 2 do Trabalho 1 - Paradigmas de Programação (UFSM)
 """
 
 import datetime
-from locale import currency
 
 '''
 1) Escreva uma função que receba uma lista de nomes e retorne uma lista com a string "Sr. " adicionada ao início de
@@ -17,7 +16,6 @@ cada nome.
 
 def nomeia(nomes):
     # caracteres acentuados saem errado
-    assert isinstance(nomes, list)
     return list(map(lambda x: "Sr. " + str(x), nomes))
 
 '''
@@ -26,7 +24,6 @@ def nomeia(nomes):
 
 
 def applyFormula(numbers):
-    assert isinstance(numbers, list)
     return list(map(lambda x: (3 * x * 2) + (2 / x) + 1, numbers))
 
 '''
@@ -36,7 +33,6 @@ letra 'a'.
 
 
 def filterNames(names):
-    assert isinstance(names, list)
     return list(filter(lambda x: x[-1] == 'a', names))
 
 '''
@@ -46,7 +42,6 @@ quem nasceu depois de 1970. Para testar a condição, sua função deverá subtr
 
 
 def filterAges(ages):
-    assert isinstance(ages, list)
     current_year = datetime.datetime.now().year
     return list(filter(lambda x: (current_year - x) > 1970, ages))
 
@@ -61,5 +56,4 @@ print(new_numbers)
 
 
 def doubleNumbers(numbers):
-    assert isinstance(numbers, list)
     return list(map(lambda x: x * 2, numbers))
