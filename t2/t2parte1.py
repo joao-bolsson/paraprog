@@ -51,7 +51,7 @@ os exemplos abaixo (você vai usar tuplas em Python):
 
 
 def genTable(num):
-    return [(x, y * y) for x in range(1, num + 1) for y in range(x, x + 1)]
+    return [(x, x * x) for x in range(1, num + 1)]
 
 
 '''
@@ -63,3 +63,30 @@ caracter de cada palavra da lista.
 def genCode(words):
     return ''.join([''.join([x[0], x[-1]]) for x in words])
 
+
+'''
+7) Defina uma função myZip(l1,l2) que reproduza o comportamento da função zip do Python.
+'''
+
+
+def myZip(l1, l2):
+    return [(l1[x], l2[x]) for x in range(0, len(l1)) if x in range(0, len(l2))]
+
+
+'''
+8) Escreva uma função enumerate(words) que numere cada palavra da lista recebida
+adiciona prefixo my pois escondia campo incorporado
+'''
+
+
+def myEnumerate(words):
+    return [(x + 1, words[x]) for x in range(0, len(words))]
+
+
+'''
+9) Escreva uma função isBin(s) que verifique se a string recebida representa um número binário.
+'''
+
+
+def isBin(s):
+    return len([x for x in s if x in '01']) == len(s)
