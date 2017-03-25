@@ -90,3 +90,13 @@ def myEnumerate(words):
 
 def isBin(s):
     return len([x for x in s if x in '01']) == len(s)
+
+
+'''
+10) Escreva uma função bin2dec(digits), que receba uma lista de dígitos representando um número binário e
+retorne seu equivalente em decimal.
+'''
+
+
+def bin2dec(digits):
+    return sum([2 ** x for x in range(len(digits) - 1, -1, -1)])
