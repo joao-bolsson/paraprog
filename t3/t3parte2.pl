@@ -53,10 +53,10 @@ mesmaPosicao(A, L1, L2) :-
 	L2 = [_|T2],
 	mesmaPosicao(A, T1, T2).
 
-%INCOMPLETA
 %Defina um predicado repete5(E,L) que seja verdadeiro se a lista L for 
 %composta por exatamente 5 repetições do elemento E. Não use recursão.
 
+repete5(E, L) :- L=[E, E, E, E, E].
 
 %Defina um predicado recursivo sumQuads(L,S) que seja verdadeiro se S 
 %for o somatório dos quadrados dos elementos da lista L
@@ -86,7 +86,12 @@ mapop(L1, L2) :-
 	Y is (2*X) + 1,
 	mapop(H1, H2).
 
+%INCOMPLETA
+%Defina um predicado positivos(L1,L2), de forma que L2 seja uma lista 
+%só com os elementos positivos de L1
 
+negative(N) :- N =< 0.
 
-
-
+positivos(List) :-
+	exclude(negative,List,L),
+	writeln(L).
