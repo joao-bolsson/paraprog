@@ -1,23 +1,17 @@
 
 ### 1) Considere a seguinte base de fatos e regras: ###
 
-| Tables        | Are           | Cool  |
-| ------------- |:-------------:| -----:|
-| col 3 is      | right-aligned | $1600 |
-| col 2 is      | centered      |   $12 |
-| zebra stripes | are neat      |    $1 |
+##### Trace 1) [trace]  ?- avo(joao, Y). #####
 
-- trace 1:
-[trace]  ?- avo(joao, Y).
-Trace output | Commentary
------------- | ----------
-   Call: (8) avo(joao, _7126) ? creep | comentar
-   Call: (9) pai(joao, _7344) ? creep | comentar
-   Exit: (9) pai(joao, jose) ? creep |comentar
-   Call: (9) pai(jose, _7126) ? creep | comentar
-   Fail: (9) pai(jose, _7126) ? creep | comentar
-   Fail: (8) avo(joao, _7126) ? creep | comentar
-false. | comentar
+|Trace output | Commentary|
+|------------ | :----------:|
+|Call: (8) avo(joao, _7126) ? creep | Regra avo invocada |
+|   Call: (9) pai(joao, _7344) ? creep | Verifica quem é o pai do joao|
+|   Exit: (9) pai(joao, jose) ? creep | Sucesso! jose é pai do joao|
+|   Call: (9) pai(jose, _7126) ? creep | Verifica quem é pai do jose|
+|   Fail: (9) pai(jose, _7126) ? creep | José não tem pai|
+|   Fail: (8) avo(joao, _7126) ? creep | |
+|false. | joao nao tem avo|
 
 - trace 2:
 
