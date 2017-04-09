@@ -67,10 +67,13 @@ sumQuads([H|T], S) :-
 	sumQuads(T, N),
 	S is D+N.
 
+%Defina um predicado recursivo repete(N,E,L) que seja verdadeiro se a 
+%lista L for composta por exatamente N repetições do elemento E.
 
-
-
-
+repete(0, _, []).
+repete(N, E, [E|T]) :-
+	repete(A, E, T),
+	N is A+1.
 
 
 
