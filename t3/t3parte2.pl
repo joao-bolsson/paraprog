@@ -32,13 +32,12 @@ hasN(L, N) :- length(L, X), X = N.
 %Defina um predicado isBin(L) que seja verdadeiro se L for uma 
 %lista contendo somente elementos 0 e 1. Use recursão.
 
-foundBinaries([], 0).
-foundBinaries([H|X], L) :-
-	(H = 0; H = 1),
-	foundBinaries(X, N),
-	L is N+1.
-
-isBin(L) :- foundBinaries(L, X), length(L, Y), X = Y.
+isBin([0]).
+isBin([1]).
+isBin(L) :-
+	L = [H|T],
+	member(H, [0, 1]),
+	isBin(T).
 
 %Defina um predicado mesmaPosicao(A,L1,L2) para verificar se um 
 %elemento A está na mesma posição nas listas L1 e L2. Assuma que 
