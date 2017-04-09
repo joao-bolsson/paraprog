@@ -1,14 +1,23 @@
+
 ### 1) Considere a seguinte base de fatos e regras: ###
+
+| Tables        | Are           | Cool  |
+| ------------- |:-------------:| -----:|
+| col 3 is      | right-aligned | $1600 |
+| col 2 is      | centered      |   $12 |
+| zebra stripes | are neat      |    $1 |
 
 - trace 1:
 [trace]  ?- avo(joao, Y).
-   Call: (8) avo(joao, _7126) ? creep
-   Call: (9) pai(joao, _7344) ? creep
-   Exit: (9) pai(joao, jose) ? creep
-   Call: (9) pai(jose, _7126) ? creep
-   Fail: (9) pai(jose, _7126) ? creep
-   Fail: (8) avo(joao, _7126) ? creep
-false.
+Trace output | Commentary
+------------ | ----------
+   Call: (8) avo(joao, _7126) ? creep | comentar
+   Call: (9) pai(joao, _7344) ? creep | comentar
+   Exit: (9) pai(joao, jose) ? creep |comentar
+   Call: (9) pai(jose, _7126) ? creep | comentar
+   Fail: (9) pai(jose, _7126) ? creep | comentar
+   Fail: (8) avo(joao, _7126) ? creep | comentar
+false. | comentar
 
 - trace 2:
 
