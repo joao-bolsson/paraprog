@@ -75,6 +75,16 @@ repete(N, E, [E|T]) :-
 	repete(A, E, T),
 	N is A+1.
 
+%Defina um predicado recursivo mapop(L1,L2) que seja verdadeiro se a 
+%lista L2 for formada aplicando-se a operação 2*x+1 a cada elemento x 
+%da lista L1
+
+mapop([], []).
+mapop(L1, L2) :-
+	L1 = [X|H1],
+	L2 = [Y|H2],
+	Y is (2*X) + 1,
+	mapop(H1, H2).
 
 
 
