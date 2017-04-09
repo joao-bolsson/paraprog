@@ -44,3 +44,30 @@ isBin(L) :-
 %L1 e L2 sejam permutações de uma lista de elementos distintos, 
 %sem repetições. Dica: procure auxílio em predicados pré-definidos.
 
+
+mesmaPosicao(A, [A|_], [A|_]).
+mesmaPosicao(A, L1, L2) :- 
+	member(A, L1),
+	member(A, L2),
+	L1 = [_|T1],
+	L2 = [_|T2],
+	mesmaPosicao(A, T1, T2).
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
