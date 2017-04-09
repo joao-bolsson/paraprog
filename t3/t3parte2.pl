@@ -52,14 +52,20 @@ mesmaPosicao(A, L1, L2) :-
 	L1 = [_|T1],
 	L2 = [_|T2],
 	mesmaPosicao(A, T1, T2).
-		
+
+%INCOMPLETA
+%Defina um predicado repete5(E,L) que seja verdadeiro se a lista L for 
+%composta por exatamente 5 repetições do elemento E. Não use recursão.
 
 
+%Defina um predicado recursivo sumQuads(L,S) que seja verdadeiro se S 
+%for o somatório dos quadrados dos elementos da lista L
 
-
-
-
-
+sumQuads([], 0).
+sumQuads([H|T], S) :- 
+	D is H*H,
+	sumQuads(T, N),
+	S is D+N.
 
 
 
