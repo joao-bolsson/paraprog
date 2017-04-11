@@ -5,35 +5,35 @@
 
 |Trace output | Commentary|
 |------------ | :----------:|
-|Call: (8) avo(joao, _7126) ? creep | Regra avo invocada |
-|   Call: (9) pai(joao, _7344) ? creep | Verifica quem é o pai do joao|
-|   Exit: (9) pai(joao, jose) ? creep | Sucesso! jose é pai do joao|
-|   Call: (9) pai(jose, _7126) ? creep | Verifica quem é pai do jose|
-|   Fail: (9) pai(jose, _7126) ? creep | José não tem pai|
-|   Fail: (8) avo(joao, _7126) ? creep | |
-|false. | joao nao tem avo|
+|Call: (8) avo(joao, _7126) ? creep | Substitui Y por variável |
+|   Call: (9) pai(joao, _7344) ? creep | Procura fato com pai sendo joao|
+|   Exit: (9) pai(joao, jose) ? creep | Sucesso! Acha fato com filho josé|
+|   Call: (9) pai(jose, _7126) ? creep | Procura fato com pai sendo josé|
+|   Fail: (9) pai(jose, _7126) ? creep | Falha! Não acha fato correspondente |
+|   Fail: (8) avo(joao, _7126) ? creep | João não tem neto |
+|false. | João não é avô|
 
 ##### Trace 2) [trace]  ?- avo(roberto, Y). #####
 
 |Trace output | Commentary|
 |------------ | :----------:|
-|   Call: (8) avo(roberto, _6950) ? creep | comentar |
-|   Call: (9) pai(roberto, _7168) ? creep | |
-|   Exit: (9) pai(roberto, joao) ? creep | |
-|   Call: (9) pai(joao, _6950) ? creep | |
-|   Exit: (9) pai(joao, jose) ? creep | |
-|   Exit: (8) avo(roberto, jose) ? creep | |
-|Y = jose ; | |
-|   Redo: (9) pai(roberto, _7168) ? creep | |
-|   Exit: (9) pai(roberto, julio) ? creep | |
-|   Call: (9) pai(julio, _6950) ? creep | |
-|   Exit: (9) pai(julio, marcos) ? creep | |
-|   Exit: (8) avo(roberto, marcos) ? creep | |
-|Y = marcos ; | |
-|   Redo: (9) pai(julio, _6950) ? creep | |
-|   Exit: (9) pai(julio, mario) ? creep | |
-|   Exit: (8) avo(roberto, mario) ? creep | |
-|Y = mario. | |
+|   Call: (8) avo(roberto, _6950) ? creep |  	Substitui Y por variavel |
+|   Call: (9) pai(roberto, _7168) ? creep | Procura fato com pai sendo roberto|
+|   Exit: (9) pai(roberto, joao) ? creep | Sucesso! Acha fato com filho joao|
+|   Call: (9) pai(joao, _6950) ? creep | Procura fato com pai sendo joao|
+|   Exit: (9) pai(joao, jose) ? creep | Sucesso! Acha fato com filho jose|
+|   Exit: (8) avo(roberto, jose) ? creep | roberto é avo de jose|
+|Y = jose ; | neto Y correspondente a jose|
+|   Redo: (9) pai(roberto, _7168) ? creep | Procura fato com pai sendo roberto|
+|   Exit: (9) pai(roberto, julio) ? creep | Sucesso! Acha fato com filho julio|
+|   Call: (9) pai(julio, _6950) ? creep | Procura fato com pai sendo julio|
+|   Exit: (9) pai(julio, marcos) ? creep | Sucesso! Acha fato com filho marcos|
+|   Exit: (8) avo(roberto, marcos) ? creep | roberto é avo de marcos|
+|Y = marcos ; | neto Y correspondente a marcos|
+|   Redo: (9) pai(julio, _6950) ? creep | Procura outro fato com pai julio|
+|   Exit: (9) pai(julio, mario) ? creep | Sucesso! Acha fato com filho mario|
+|   Exit: (8) avo(roberto, mario) ? creep | roberto é avo de mario|
+|Y = mario. | neto Y correspondente a mario|
 
 ### 2) Mostre o trace comentado desta consulta: (OBI) ###
 
@@ -41,47 +41,39 @@
 
 |Trace output | Commentary|
 |------------ | :----------:|
-|   Call: (8) azulejos(120, _992) ? creep | comentar |
-|   Call: (9) 120>0 ? creep | |
-|   Exit: (9) 120>0 ? creep | |
-|   Call: (9) _1218 is floor(sqrt(120)) ? creep | |
-|   Exit: (9) 10 is floor(sqrt(120)) ? creep | |
-|   Call: (9) _1230 is 120-10*10 ? creep | |
-|   Exit: (9) 20 is 120-10*10 ? creep | |
-|   Call: (9) azulejos(20, _1232) ? creep | |
-|   Call: (10) 20>0 ? creep | |
-|   Exit: (10) 20>0 ? creep | |
-|   Call: (10) _1238 is floor(sqrt(20)) ? creep | |
-|   Exit: (10) 4 is floor(sqrt(20)) ? creep | |
-|   Call: (10) _1250 is 20-4*4 ? creep | |
-|   Exit: (10) 4 is 20-4*4 ? creep | |
-|   Call: (10) azulejos(4, _1252) ? creep | |
-|   Call: (11) 4>0 ? creep | |
-|   Exit: (11) 4>0 ? creep | |
-|   Call: (11) _1258 is floor(sqrt(4)) ? creep | |
-|   Exit: (11) 2 is floor(sqrt(4)) ? creep | |
-|   Call: (11) _1270 is 4-2*2 ? creep | |
-|   Exit: (11) 0 is 4-2*2 ? creep | |
-|   Call: (11) azulejos(0, _1272) ? creep | |
-|   Exit: (11) azulejos(0, 0) ? creep | |
-|   Call: (11) _1276 is 1+0 ? creep | |
-|   Exit: (11) 1 is 1+0 ? creep | |
-|   Exit: (10) azulejos(4, 1) ? creep | |
-|   Call: (10) _1282 is 1+1 ? creep | |
-|   Exit: (10) 2 is 1+1 ? creep | |
-|   Exit: (9) azulejos(20, 2) ? creep | |
-|   Call: (9) _992 is 1+2 ? creep | |
-|   Exit: (9) 3 is 1+2 ? creep | |
-|   Exit: (8) azulejos(120, 3) ? creep | |
-|A = 3 ; | |
-|   Redo: (11) azulejos(0, _1272) ? creep | |
-|   Call: (12) 0>0 ? creep | |
-|   Fail: (12) 0>0 ? creep | |
-|   Fail: (11) azulejos(0, _1272) ? creep | |
-|   Fail: (10) azulejos(4, _1252) ? creep | |
-|   Fail: (9) azulejos(20, _1232) ? creep | |
-|   Fail: (8) azulejos(120, _992) ? creep | |
-|false. | |
+|   Call: (8) azulejos(120, _992) ? creep | A substituido por variavel única |
+|   Call: (9) 120>0 ? creep | testa 120>0|
+|   Exit: (9) 120>0 ? creep | Sucesso! teste correto|
+|   Call: (9) _1218 is floor(sqrt(120)) ? creep | Executa operação em variável|
+|   Exit: (9) 10 is floor(sqrt(120)) ? creep | Sucesso! Operação resulta em 10 e está correta|
+|   Call: (9) _1230 is 120-10*10 ? creep | Executa segunda operação|
+|   Exit: (9) 20 is 120-10*10 ? creep | Sucesso! Operação resulta em 20 e está correta|
+|   Call: (9) azulejos(20, _1232) ? creep | Chama nível 2 da recursão com resultado 20|
+|   Call: (10) 20>0 ? creep | testa 20>0|
+|   Exit: (10) 20>0 ? creep | Sucesso! teste correto|
+|   Call: (10) _1238 is floor(sqrt(20)) ? creep | Executa operação em variável|
+|   Exit: (10) 4 is floor(sqrt(20)) ? creep | Sucesso! Operação resulta em 4 e está correta|
+|   Call: (10) _1250 is 20-4*4 ? creep | Executa segunda operação em variável|
+|   Exit: (10) 4 is 20-4*4 ? creep | Sucesso! Operação resultada em 4 está correta|
+|   Call: (10) azulejos(4, _1252) ? creep | Chama nível 3 da recursão com resultado 4|
+|   Call: (11) 4>0 ? creep | testa 4>0|
+|   Exit: (11) 4>0 ? creep | Sucesso! teste correto|
+|   Call: (11) _1258 is floor(sqrt(4)) ? creep | Executa operação em variável|
+|   Exit: (11) 2 is floor(sqrt(4)) ? creep | Sucesso! Resultado 2 está correto|
+|   Call: (11) _1270 is 4-2*2 ? creep | Executa segunda operação em variável|
+|   Exit: (11) 0 is 4-2*2 ? creep | Sucesso! Resultado 0 correto|
+|   Call: (11) azulejos(0, _1272) ? creep | Chama nível 3 de recursão com 0|
+|   Exit: (11) azulejos(0, 0) ? creep | Encontra fato correspondente e retorna ao nível 3|
+|   Call: (11) _1276 is 1+0 ? creep |Executa operação em variável |
+|   Exit: (11) 1 is 1+0 ? creep | Sucesso! Resultado 1 correto|
+|   Exit: (10) azulejos(4, 1) ? creep | Retorna ao nível 2 de recursão|
+|   Call: (10) _1282 is 1+1 ? creep | Executa operação de incremento em variável|
+|   Exit: (10) 2 is 1+1 ? creep | Sucesso! Resultado 2 correto|
+|   Exit: (9) azulejos(20, 2) ? creep | Retorna para primeiro nível|
+|   Call: (9) _992 is 1+2 ? creep | Executa operação em variável|
+|   Exit: (9) 3 is 1+2 ? creep | Sucesso! Resultado 3 correto|
+|   Exit: (8) azulejos(120, 3) ? creep | Regra sucede|
+|A = 3 . | Regra sucede com valor de A igual a 3|
 
 ### 3) Faça a execução passo-a-passo de uma consulta com o predicado escolhido. ###
 
