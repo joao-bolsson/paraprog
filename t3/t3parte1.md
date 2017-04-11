@@ -87,19 +87,19 @@ list_length([_|X], L) :-
 ##### Trace) [trace]  ?- list_length([a, b, c], L).#####
 |Trace output | Commentary|
 |------------ | :----------:|
-|   Call: (8) list_length([a, b, c], _8586) ? creep | comentar |
-|   Call: (9) list_length([b, c], _8826) ? creep | |
-|   Call: (10) list_length([c], _8826) ? creep | |
-|   Call: (11) list_length([], _8826) ? creep | |
-|   Exit: (11) list_length([], 0) ? creep | |
-|   Call: (11) _8830 is 0+1 ? creep | |
-|   Exit: (11) 1 is 0+1 ? creep | |
-|   Exit: (10) list_length([c], 1) ? creep | |
-|   Call: (10) _8836 is 1+1 ? creep | |
-|   Exit: (10) 2 is 1+1 ? creep | |
-|   Exit: (9) list_length([b, c], 2) ? creep | |
-|   Call: (9) _8586 is 2+1 ? creep | |
-|   Exit: (9) 3 is 2+1 ? creep | |
-|   Exit: (8) list_length([a, b, c], 3) ? creep | |
-|L = 3. | |
+|   Call: (8) list_length([a, b, c], _8586) ? creep | Substitui L por variavel |
+|   Call: (9) list_length([b, c], _8826) ? creep | Chama o nivel 2 da recursão|
+|   Call: (10) list_length([c], _8826) ? creep | Chama o nível 3 da recursão|
+|   Call: (11) list_length([], _8826) ? creep | Chama o nível 4 da recursão|
+|   Exit: (11) list_length([], 0) ? creep | Lista vazia|
+|   Call: (11) _8830 is 0+1 ? creep |Executa operação em variável |
+|   Exit: (11) 1 is 0+1 ? creep | Sucesso! resultado correto|
+|   Exit: (10) list_length([c], 1) ? creep | Retorna ao nível 3 da recursão com 1 elemento|
+|   Call: (10) _8836 is 1+1 ? creep | Executa operação em variável|
+|   Exit: (10) 2 is 1+1 ? creep | Sucesso! resultado correto|
+|   Exit: (9) list_length([b, c], 2) ? creep | Retorna ao nível 2 da recursão com 2 elementos|
+|   Call: (9) _8586 is 2+1 ? creep |  Executa operação em variável|
+|   Exit: (9) 3 is 2+1 ? creep | Sucesso! resultado correto|
+|   Exit: (8) list_length([a, b, c], 3) ? creep | Retorna ao nível 1 da recursão com 3 elementos|
+|L = 3. | Regra sucede com valor L = 3|
 
