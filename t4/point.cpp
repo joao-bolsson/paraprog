@@ -35,14 +35,16 @@ public:
 
 };
 
+/** essa classe não precisa ter main(), apenas para testes
 int main() {
-   Point* p = new Point(1.0, 2.0);
+   Point p = Point(1.0, 2.0);
 
    Point* points[QT];
    for (int i = 0; i < QT; i++) {
       points[i] = new Point(i, i + 1.0);
-      cout << p->distanceTo(points[i]) << endl;
+      cout << p.distanceTo(points[i]) << endl;
+      delete points[i];
    }
-   delete p, points;
    return 0;
 }
+**/
