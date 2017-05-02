@@ -37,7 +37,7 @@ public:
             tag += (*list_iter).toString();
         }
 
-        tag += "</" + this->name + ">";
+        tag += "</" + this->name + ">\n";
         return tag;
     }
 

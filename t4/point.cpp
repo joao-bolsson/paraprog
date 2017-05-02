@@ -32,6 +32,14 @@ public:
       double dist = sqrt(dx + dy);
       return dist;
    }
+   
+   double getX() {
+       return this->x;
+   }
+   
+   double getY() {
+       return this->y;
+   }
 
 };
 
