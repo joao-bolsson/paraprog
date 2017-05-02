@@ -1,9 +1,14 @@
 #include <iostream>
+#include <fstream>
 #include "tag.cpp"
 
 using namespace std;
 
 int main() {
+
+    ofstream file;
+    file.open("circulos.svg");
+
     Tag svg = Tag("svg");
     svg.addAttribute("height", "100");
     svg.addAttribute("width", "100");
@@ -17,6 +22,10 @@ int main() {
     circle.addAttribute("fill", "red");
 
     svg.addTag(circle);
+
+    file << svg.toString() << endl;
+
+    file.close();
 
     cout << svg.toString() << endl;
     return 0;
