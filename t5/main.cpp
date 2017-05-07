@@ -2,6 +2,7 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
+#include <algorithm>
 #include "Activity.cpp"
 
 using namespace std;
@@ -23,10 +24,17 @@ int main() {
         Activity activity = Activity(actName, plName, atoi(scores.c_str()));
 
         activities.push_back(activity);
-        cout << "ola" << endl;
     }
 
-    cout << "Hello" << endl;
+    /**
+     * Liste as pontuações em atividades ordenadas da maior para a menor pontuação, mostrando
+     * todos os atributos (nome, atividade, pontos)
+     */
+    sort(activities.begin(), activities.end());
+    for (Activity activity : activities) {
+        cout << "Nome: " << activity.getPlayer() << " - Atividade: " << activity.getName()
+             << " - Pontuação: " << activity.getScores() << endl;
+    }
 
     return 0;
 }

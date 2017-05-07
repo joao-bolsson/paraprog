@@ -24,6 +24,7 @@ public:
     Activity(string name, string player, int scores) {
         this->name = name;
         this->player = player;
+        this->scores = scores;
     }
 
     string getPlayer() {
@@ -35,6 +36,13 @@ public:
      */
     string getName() {
         return name;
+    }
+
+    /**
+     * @return Scores in activity by player.
+     */
+    int getScores() {
+        return scores;
     }
 
     bool operator<(Activity &act) {
