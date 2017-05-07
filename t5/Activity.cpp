@@ -19,8 +19,9 @@ public:
      * Default construct.
      * @param name Activity name.
      * @param player Activity player.
+     * @param scores Player scores in activity.
      */
-    Activity(string name, string player) {
+    Activity(string name, string player, int scores) {
         this->name = name;
         this->player = player;
     }
