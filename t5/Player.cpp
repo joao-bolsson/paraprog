@@ -51,8 +51,4 @@ public:
         return this->name.compare(player.getName()) < 0;
     }
 
-    bool operator==(Player &player) {
-        return this->name == player.getName();
-    }
-
 };

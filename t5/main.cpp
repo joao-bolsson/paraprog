@@ -8,6 +8,13 @@
 
 using namespace std;
 
+/**
+ * Checks if a vector of players already contains a player by name.
+ *
+ * @param players Vector to look for.
+ * @param plName Player name to check.
+ * @return If vector contains the player - return index, else - return -1.
+ */
 int containsPlayer(vector<Player> players, string plName) {
     int index = 0;
     for (Player pl : players) {
@@ -18,6 +25,16 @@ int containsPlayer(vector<Player> players, string plName) {
         }
     }
     return -1;
+}
+
+/**
+ * Compare the scores between two players.
+ * @param pl1 Player one.
+ * @param pl2 Player two.
+ * @return If scores of player two are greater than scores of player one - true, else - false.
+ */
+bool compareScores(Player &pl1, Player &pl2) {
+    return pl1.getScores() < pl2.getScores();
 }
 
 int main() {
@@ -60,7 +77,7 @@ int main() {
      * Liste as pontuações em atividades ordenadas da maior para a menor pontuação, mostrando
      * todos os atributos (nome, atividade, pontos)
      */
-    cout << "--- ATIVIDADES EM ORDEM CRESCENTE ---" << endl;
+    cout << "--- ATIVIDADES EM ORDEM CRESCENTE DE PONTUAÇÃO ---" << endl;
     sort(activities.begin(), activities.end());
     for (Activity activity : activities) {
         cout << "Nome: " << activity.getPlayer() << " - Atividade: " << activity.getName()
@@ -68,8 +85,19 @@ int main() {
     }
 
 
+    /**
+     * Liste as pontuações totais por ordem alfabética do nome do jogador, mostrando todos
+     * os atributos (nome, pontos).
+     */
     cout << "--- PONTUAÇÃO DOS JOGADORES EM ORDEM ALFABETICA ---" << endl;
     sort(players.begin(), players.end());
+    for (Player player : players) {
+        cout << "Nome: " << player.getName() << " - Pontuação total: " << player.getScores()
+             << endl;
+    }
+
+    cout << "--- PONTUAÇÕES TOTAIS DA MENOR PARA A MAIOR ---" << endl;
+    sort(players.begin(), players.end(), compareScores);
     for (Player player : players) {
         cout << "Nome: " << player.getName() << " - Pontuação total: " << player.getScores()
              << endl;
