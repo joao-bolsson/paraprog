@@ -5,6 +5,9 @@
  * @since 2017, 17 May.
  */
 
+#ifndef TRIANGLE
+#define TRIANGLE
+
 #include "Shape.cpp"
 
 class Triangle : public Shape {
@@ -31,3 +34,5 @@ public:
         return (base * height) / 2;
     }
 };
+
+#endif

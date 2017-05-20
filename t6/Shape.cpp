@@ -5,8 +5,15 @@
  * @since 2017, 17 May.
  */
 
+#ifndef SHAPE
+#define SHAPE
+
 class Shape {
 
 public:
-    virtual double getArea() = 0;
+    virtual double getArea() {
+        return 0;
+    }
 };
+
+#endif

@@ -5,7 +5,10 @@
  * @since 2017, 17 May.
  */
 
-#include "Shape.cpp";
+#ifndef CIRCLE
+#define CIRCLE
+
+#include "Shape.cpp"
 
 #define PI 3.14;
 
@@ -32,3 +35,5 @@ public:
     }
 
 };
+
+#endif

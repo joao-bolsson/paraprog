@@ -5,6 +5,9 @@
  * @since 2017, 17 May.
  */
 
+#ifndef RECTANGLE
+#define RECTANGLE
+
 #include "Shape.cpp"
 
 class Rectangle : public Shape {
@@ -32,3 +35,5 @@ public:
         return width * height;
     }
 };
+
+#endif
