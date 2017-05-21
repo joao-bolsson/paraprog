@@ -23,10 +23,6 @@
 #define MEDIUM "Médio"
 #define BIG "Grande"
 
-#define SMALL_PRICE 0.4
-#define MEDIUM_PRICE 0.65
-#define BIG_PRICE 0.75
-
 using namespace std;
 
 class Cookie {
@@ -90,10 +86,10 @@ public:
     }
 
     /**
-     * @return String representing the size of this cookie.
+     * @return The cookie area.
      */
-    string getSize() {
-        return size;
+    double getArea() {
+        return shape->getArea();
     }
 
     /**
@@ -108,7 +104,7 @@ public:
      */
     void toString() {
         cout << "Cookie shape: " << getShape() << " | Área: " << shape->getArea()
-             << " | " << getSize() << " | Preço: " << getPrice() << endl;
+             << " | " << size << " | Preço: " << getPrice() << endl;
     }
 };
 

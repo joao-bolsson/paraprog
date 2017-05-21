@@ -39,6 +39,17 @@ private:
         return Cookie(type);
     }
 
+    /**
+     * Function to sort the pack.
+     *
+     * @param a First cookie.
+     * @param b Second cookie.
+     * @return If area of the cookie a is greater than area of the cookie b - false, else - true.
+     */
+    static bool compare(Cookie &a, Cookie &b) {
+        return a.getArea() < b.getArea();
+    }
+
 public:
 
     /**
@@ -50,6 +61,7 @@ public:
         this->n = n;
         srand((unsigned) time(NULL));
         buildPack();
+        cookies.sort(compare);
     }
 
     /**
