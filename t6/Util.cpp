@@ -15,13 +15,13 @@
 #include "Rectangle.cpp"
 
 #define MIN_RADIUS 1
-#define MAX_RADIUS 6
+#define MAX_RADIUS 4
 
-#define MIN_WIDTH 4
-#define MAX_WIDTH 10
+#define MIN_WIDTH 1
+#define MAX_WIDTH 5
 
 #define MIN_HEIGHT 1
-#define MAX_HEIGHT 7
+#define MAX_HEIGHT 6
 
 class Util {
 public:

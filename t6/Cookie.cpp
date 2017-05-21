@@ -17,7 +17,7 @@
 #define TYPE_TRIANGLE 2
 
 #define SMALL_SIZE 5
-#define BIG_SIZE 10
+#define BIG_SIZE 13
 
 #define SMALL "Pequeno"
 #define MEDIUM "Médio"
