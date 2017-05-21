@@ -35,7 +35,8 @@ private:
      * @return A random cookie.
      */
     static Cookie makeCookie() {
-        return Cookie(Util::getRand(1, 3));
+        int type = rand() % 3 + 1;
+        return Cookie(type);
     }
 
 public:
@@ -47,6 +48,7 @@ public:
      */
     Pack(int n) {
         this->n = n;
+        srand((unsigned) time(NULL));
         buildPack();
     }
 
