@@ -23,7 +23,7 @@ public:
      *
      * @param r Circle radius.
      */
-    Circle(int r) {
+    Circle(int r) : Shape() {
         radius = r;
     }
 

@@ -11,6 +11,11 @@
 class Shape {
 
 public:
+
+    Shape() {
+        // empty
+    }
+
     virtual double getArea() {
         return 0;
     }

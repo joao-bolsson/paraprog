@@ -1,6 +1,8 @@
-#include <iostream>
+#include "Pack.cpp"
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    Pack pack = Pack(10);
+
+    pack.showCookies();
     return 0;
 }
