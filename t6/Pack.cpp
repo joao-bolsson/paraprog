@@ -68,9 +68,27 @@ public:
      * Show all the cookies in this pack.
      */
     void showCookies() {
+        int small = 0, medium = 0, big = 0;
+        double price_s = 0, price_m = 0, price_b = 0;
         for (Cookie cookie : cookies) {
             cookie.toString();
+            if (cookie.getSize() == SMALL) {
+                small++;
+                price_s += cookie.getPrice();
+            } else if (cookie.getSize() == MEDIUM) {
+                medium++;
+                price_m += cookie.getPrice();
+            } else {
+                big++;
+                price_b += cookie.getPrice();
+            }
         }
+
+        cout << "-----------------------------------------------------" << endl;
+        cout << "Pequenos: " << small << " | Estimativa: R$ " << price_s << endl;
+        cout << "Médios: " << medium << " | Estimativa: R$ " << price_m << endl;
+        cout << "Grandes: " << big << " | Estimativa: R$ " << price_b << endl;
+        cout << "Total: " << (price_s + price_m + price_b) << endl;
     }
 
 };

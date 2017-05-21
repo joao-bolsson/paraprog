@@ -93,6 +93,13 @@ public:
     }
 
     /**
+     * @return The cookie size.
+     */
+    string getSize() {
+        return size;
+    }
+
+    /**
      * @return The cookie price.
      */
     double getPrice() {
