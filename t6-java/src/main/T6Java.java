@@ -20,7 +20,6 @@ public class T6Java {
 
         Pack pack = new Pack(n);
         pack.showCookies();
-
     }
 
 }
