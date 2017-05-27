@@ -2,9 +2,9 @@
 __pycache__/
 CMakeLists.txt
 cmake-build-debug/
-*/nbproject/
-*/nbproject/private/
+t6-java/nbproject/
+t6-java/nbproject/private/
 build/
 dist/
-build.xml
-manifest.mf
+t6-java/build.xml
+t6-java/manifest.mf
