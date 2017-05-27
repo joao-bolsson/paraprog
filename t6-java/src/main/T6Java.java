@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class T6Java {
 
     /**
-     * @param args the command line arguments
+     * @param args the command line arguments (none)
      */
     public static void main(final String[] args) {
         Scanner entrada = new Scanner(System.in);
