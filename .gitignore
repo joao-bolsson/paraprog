@@ -2,3 +2,6 @@
 __pycache__/
 CMakeLists.txt
 cmake-build-debug/
+nbproject/private/
+build/
+dist/
