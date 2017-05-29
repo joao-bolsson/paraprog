@@ -3,6 +3,7 @@ package view;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
@@ -21,7 +22,7 @@ public class MainPanel extends JPanel {
     /**
      * Best dimension for this panel.
      */
-    private static final Dimension DIMENSION = new Dimension(620, 300);
+    private static final Dimension DIMENSION = new Dimension(620, 450);
 
     /**
      * Panel title.
@@ -43,7 +44,17 @@ public class MainPanel extends JPanel {
         setPreferredSize(DIMENSION);
         final GridBagConstraints cons = new GridBagConstraints();
         cons.gridx = cons.gridy = 0;
+        cons.fill = GridBagConstraints.BOTH;
         add(new ImagePanel(), cons);
+
+        cons.gridy++;
+        add(new InputPanel(), cons);
+
+        cons.gridy++;
+        add(new Viewer(), cons);
+
+        cons.gridy++;
+        add(new JButton("Sortear"), cons);
     }
 
     /**
