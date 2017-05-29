@@ -8,3 +8,5 @@ build/
 dist/
 t6-java/build.xml
 t6-java/manifest.mf
+/t7/nbproject/private/
+/t7-teste/nbproject/private/
