@@ -184,6 +184,8 @@ public class MainPanel extends JPanel {
     private JPanel createViewerPanel() {
         JPanel viewer = new JPanel();
 
+        viewer.setPreferredSize(new Dimension(DIMENSION.width, 70));
+
         winnerInView.setFont(new Font("Serif", Font.BOLD, 48));
 
         viewer.setBorder(BorderFactory.createEtchedBorder());
