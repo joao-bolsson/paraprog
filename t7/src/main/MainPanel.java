@@ -122,6 +122,7 @@ public class MainPanel extends JPanel {
      */
     private void start(final boolean flag) {
         winners = 0;
+        lblWinner.setText("");
         resetButton.setEnabled(flag);
         sortButton.setEnabled(flag);
         startButton.setEnabled(!flag);

@@ -54,9 +54,11 @@ public class Manager {
         if (participants.isEmpty()) {
             return NO_PARTICIPANTS;
         }
-        int index = ThreadLocalRandom.current().nextInt(0, participants.size() + 1);
-        participants.remove(index);
-        return index;
+        int index = ThreadLocalRandom.current().nextInt(0, participants.size());
+        Integer toRemove = participants.get(index);
+        participants.remove(toRemove);
+        // participantes recebem números começando em 1 e não em 0
+        return toRemove + 1;
     }
 
     public static void main(String[] args) {
