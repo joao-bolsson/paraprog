@@ -33,7 +33,7 @@ public class MainPanel extends JPanel {
 
     private final JTextField field;
 
-    private final JLabel lblWinner;
+    private final JLabel lblWinner, winnerInView;
 
     /**
      * Best dimension for this panel.
@@ -45,6 +45,8 @@ public class MainPanel extends JPanel {
      */
     private static final String TITLE = "Trabalho 7";
 
+    private int winners = 0;
+
     /**
      * Default construct.
      */
@@ -53,9 +55,26 @@ public class MainPanel extends JPanel {
 
         resetButton = new JButton("Reset");
         sortButton = new JButton("Sortear");
+        winnerInView = new JLabel();
+
+        sortButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                int guess = Manager.getInstance().getGuess();
+                if (guess == Manager.NO_PARTICIPANTS) {
+                    start(false);
+                    JOptionPane.showMessageDialog(MainPanel.this, "Todos os participantes já foram sorteados",
+                            "Mensagem", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    winners++;
+                    lblWinner.setText(winners + "º ganhador");
+                    winnerInView.setText(Integer.toString(guess));
+                }
+            }
+        });
         startButton = new JButton("Iniciar");
         field = new JTextField(10);
-        lblWinner = new JLabel("8º Ganhador");
+        lblWinner = new JLabel();
 
         // the initial state of panel
         start(false);
@@ -72,6 +91,8 @@ public class MainPanel extends JPanel {
                     try {
                         int intValue = Integer.parseInt(text);
                         start(true);
+                        // just initialize the manager.
+                        Manager.getInstance().start(intValue);
                     } catch (final NumberFormatException ex) {
                         showError("Somente inteiros maiores que 0");
                     }
@@ -100,9 +121,11 @@ public class MainPanel extends JPanel {
      * @param flag Reset and sort button state.
      */
     private void start(final boolean flag) {
+        winners = 0;
         resetButton.setEnabled(flag);
         sortButton.setEnabled(flag);
         startButton.setEnabled(!flag);
+        winnerInView.setText("");
     }
 
     /**
@@ -160,13 +183,12 @@ public class MainPanel extends JPanel {
     private JPanel createViewerPanel() {
         JPanel viewer = new JPanel();
 
-        JLabel lblWinner = new JLabel("32");
-        lblWinner.setFont(new Font("Serif", Font.BOLD, 48));
+        winnerInView.setFont(new Font("Serif", Font.BOLD, 48));
 
         viewer.setBorder(BorderFactory.createEtchedBorder());
         viewer.setAlignmentX(Component.CENTER_ALIGNMENT);
         viewer.setAlignmentY(Component.CENTER_ALIGNMENT);
-        viewer.add(lblWinner);
+        viewer.add(winnerInView);
 
         return viewer;
     }
