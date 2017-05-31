@@ -1,13 +1,11 @@
-package controller;
-
-import view.MainPanel;
+package main;
 
 /**
  *
  * @author João Bolsson (joaovictorbolsson@gmail.com)
  * @since 2017, 29 May.
  */
-public class Activator {
+public class Manager {
 
     public static void main(String[] args) {
         MainPanel mainPanel = new MainPanel();
