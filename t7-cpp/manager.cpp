@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctime>
+#include <iostream>
 
 #define NO_PARTICIPANTS -2
 using namespace std;
@@ -19,7 +20,8 @@ private:
     list<int> participants;
 
     Manager() {
-        // empty
+        /* Intializes random number generator */
+        srand((unsigned) time(NULL));
     }
 
 public:
@@ -36,9 +38,14 @@ public:
      */
     void start(int numberOfParticipants) {
         participants.clear();
-        for (int i = 0; i < numberOfParticipants; i++) {
+        for (int i = 1; i <= numberOfParticipants; i++) {
             participants.push_back(i);
         }
+        cout << "all the participants:";
+        for (auto it=participants.begin(); it!=participants.end(); ++it) {
+            cout << ' ' << *it;
+        }
+        cout << '\n';
     }
 
     int getGuess() {
@@ -46,14 +53,16 @@ public:
             return NO_PARTICIPANTS;
         }
 
-        /* Intializes random number generator */
-        srand((unsigned) time(NULL));
-
         int index = rand() % participants.size();
-        // participantes recebem números começando em 1 e não em 0
-        participants.remove(index);
 
-        return index + 1;
+        auto it = participants.begin();
+        advance(it, index);
+        // saves the participant that will be removed
+        int toRemove = *it;
+
+        participants.erase(it);
+
+        return toRemove;
     }
 
 };

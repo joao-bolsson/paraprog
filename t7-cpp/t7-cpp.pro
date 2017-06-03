@@ -34,8 +34,7 @@ HEADERS += \
 FORMS += \
         mainwindow.ui
 
-DISTFILES += \
-    ../t7/src/resource/logo.png
+DISTFILES +=
 
 RESOURCES += \
     myresources.qrc
