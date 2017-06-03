@@ -24,7 +24,6 @@ void MainWindow::on_startButton_clicked()
 {
     QString text = ui->field->text();
     ui->field->setText("");
-
     if (text.isEmpty()) {
         QMessageBox msgBox;
         msgBox.setWindowTitle("Mensagem");
@@ -63,8 +62,8 @@ void MainWindow::on_sortButton_clicked()
         msgBox.setText("Todos os participantes já foram sorteados");
         msgBox.exec();
     } else {
-        winners++;
-        ui->lblWinner->setText("Ganhador " + winners);
+        string win = to_string(++winners) + "º Ganhador";
+        ui->lblWinner->setText(QString::fromStdString(win));
         string stdString = to_string(guess);
         ui->winnerInView->setText(QString::fromStdString(stdString));
     }
