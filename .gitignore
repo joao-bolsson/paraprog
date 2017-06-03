@@ -11,3 +11,4 @@ t6-java/manifest.mf
 /t7/nbproject/private/
 /t7-teste/nbproject/private/
 *.user
+/t7-java/nbproject/private/
