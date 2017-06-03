@@ -18,17 +18,12 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-public slots:
-    void clickedSlot()
-    {
-        QMessageBox msgBox;
-        msgBox.setWindowTitle("Hello");
-        msgBox.setText("You Clicked "+ ((QPushButton*)sender())->text());
-        msgBox.exec();
-    }
+    int winners;
 
 private slots:
     void on_startButton_clicked();
+
+    void start(bool flag);
 
 private:
     Ui::MainWindow *ui;

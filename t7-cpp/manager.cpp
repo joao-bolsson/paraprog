@@ -8,6 +8,7 @@
 #include <list>
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctime>
 
 #define NO_PARTICIPANTS -2
 using namespace std;
@@ -46,7 +47,7 @@ public:
         }
 
         /* Intializes random number generator */
-        srand((unsigned) 123456171872871271261726152615251524524215242314216217256142514);
+        srand((unsigned) time(NULL));
 
         int index = rand() % participants.size();
         // participantes recebem números começando em 1 e não em 0
