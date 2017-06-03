@@ -27,6 +27,8 @@ private slots:
 
     void on_resetButton_clicked();
 
+    void on_sortButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

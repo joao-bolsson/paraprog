@@ -52,3 +52,20 @@ void MainWindow::on_resetButton_clicked()
     start(false);
     ui->field->setText("");
 }
+
+void MainWindow::on_sortButton_clicked()
+{
+    int guess = Manager::getInstance().getGuess();
+    if (guess == NO_PARTICIPANTS) {
+        start(false);
+        QMessageBox msgBox;
+        msgBox.setWindowTitle("Mensagem");
+        msgBox.setText("Todos os participantes já foram sorteados");
+        msgBox.exec();
+    } else {
+        winners++;
+        ui->lblWinner->setText("Ganhador " + winners);
+        string stdString = to_string(guess);
+        ui->winnerInView->setText(QString::fromStdString(stdString));
+    }
+}
