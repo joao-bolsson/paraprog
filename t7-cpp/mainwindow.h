@@ -6,6 +6,9 @@
 #include <QMessageBox>
 #include <QHBoxLayout>
 
+#include <string>
+
+using namespace std;
 namespace Ui {
 class MainWindow;
 }
@@ -28,6 +31,8 @@ private slots:
     void on_resetButton_clicked();
 
     void on_sortButton_clicked();
+
+    void showMessage(string text);
 
 private:
     Ui::MainWindow *ui;
