@@ -25,6 +25,8 @@ private slots:
 
     void start(bool flag);
 
+    void on_resetButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

@@ -11,6 +11,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    // the initial state of panel
+    start(false);
 }
 
 MainWindow::~MainWindow()
@@ -43,4 +45,10 @@ void MainWindow::start(bool flag) {
     ui->sortButton->setEnabled(flag);
     ui->startButton->setEnabled(!flag);
     ui->winnerInView->setText("");
+}
+
+void MainWindow::on_resetButton_clicked()
+{
+    start(false);
+    ui->field->setText("");
 }
