@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package main;
 
 import java.awt.BorderLayout;
@@ -12,7 +7,8 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author joao
+ * @author João Bolsson (joaobolsson@animati.com.br)
+ * @since 2017, 06 Jun.
  */
 public class MainPanel extends JPanel {
 
@@ -23,11 +19,14 @@ public class MainPanel extends JPanel {
 
     private void iniComp() {
         List<Person> initialList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 100; i++) {
             initialList.add(new Person("João " + i, "Telefone " + i, i));
         }
 
         PersonTableModel personTableModel = new PersonTableModel(initialList);
-        add(new PersonPanel(personTableModel), BorderLayout.NORTH);
+
+        add(new PersonEditPanel(personTableModel), BorderLayout.NORTH);
+
+        add(new PersonPanel(personTableModel), BorderLayout.CENTER);
     }
 }
