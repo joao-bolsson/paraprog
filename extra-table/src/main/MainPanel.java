@@ -12,9 +12,24 @@ import javax.swing.JPanel;
  */
 public class MainPanel extends JPanel {
 
-    public MainPanel() {
+    private static MainPanel INSTANCE;
+
+    public static MainPanel getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new MainPanel();
+        }
+        return INSTANCE;
+    }
+
+    private MainPanel() {
         super(new BorderLayout());
         iniComp();
+    }
+
+    private PersonEditPanel personEditPanel;
+
+    public void editPerson(final Person person) {
+        System.out.println("name: " + person.getName());
     }
 
     private void iniComp() {
@@ -25,7 +40,9 @@ public class MainPanel extends JPanel {
 
         PersonTableModel personTableModel = new PersonTableModel(initialList);
 
-        add(new PersonEditPanel(personTableModel), BorderLayout.NORTH);
+        personEditPanel = new PersonEditPanel(personTableModel);
+
+        add(personEditPanel, BorderLayout.NORTH);
 
         add(new PersonPanel(personTableModel), BorderLayout.CENTER);
     }

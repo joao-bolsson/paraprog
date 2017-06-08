@@ -5,9 +5,11 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 /**
  *
@@ -22,6 +24,8 @@ public class PersonEditPanel extends JPanel {
 
     private final JTextField txtName, txtPhone, txtAge;
 
+    private final JButton btnApply, btnReset;
+
     /**
      * Default construct to build the edit person panel.
      *
@@ -31,8 +35,23 @@ public class PersonEditPanel extends JPanel {
         super(new BorderLayout());
 
         txtName = new JTextField(20);
+        txtName.setLayout(new BorderLayout());
+        txtName.add(new JLabel("Nome: "), BorderLayout.WEST);
+        txtName.setHorizontalAlignment(SwingConstants.RIGHT);
+
         txtPhone = new JTextField(20);
+        txtPhone.setLayout(new BorderLayout());
+        txtPhone.add(new JLabel("Telefone: "), BorderLayout.WEST);
+        txtPhone.setHorizontalAlignment(SwingConstants.RIGHT);
+
         txtAge = new JTextField(20);
+        txtAge.setLayout(new BorderLayout());
+        txtAge.add(new JLabel("Idade: "), BorderLayout.WEST);
+        txtAge.setHorizontalAlignment(SwingConstants.RIGHT);
+
+        btnApply = new JButton("Adicionar");
+
+        btnReset = new JButton("Limpar");
 
         this.tableModel = tableModel;
         iniComp();
@@ -55,20 +74,12 @@ public class PersonEditPanel extends JPanel {
         cons.gridx = 0;
         cons.gridy = 0;
 
-        rootPanel.add(new JLabel("Nome: "), cons);
-        cons.gridx++;
         rootPanel.add(txtName, cons);
-        cons.gridx = 0;
         cons.gridy++;
 
-        rootPanel.add(new JLabel("Telefone: "), cons);
-        cons.gridx++;
         rootPanel.add(txtPhone, cons);
-        cons.gridx = 0;
         cons.gridy++;
 
-        rootPanel.add(new JLabel("Idade: "), cons);
-        cons.gridx++;
         rootPanel.add(txtAge, cons);
 
         return rootPanel;

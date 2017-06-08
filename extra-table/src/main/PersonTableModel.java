@@ -31,6 +31,11 @@ public class PersonTableModel extends AbstractTableModel {
     public static final int INDEX_AGE = 2;
 
     /**
+     * Index to get the person object in row.
+     */
+    public static final int INDEX_PERSON = -1;
+
+    /**
      * Default construct to build the model (with no lines).
      */
     public PersonTableModel() {
@@ -73,6 +78,9 @@ public class PersonTableModel extends AbstractTableModel {
 
             case INDEX_AGE:
                 return person.getAge();
+
+            case INDEX_PERSON:
+                return person;
             default:
                 throw new UnsupportedOperationException("Value not found.");
         }

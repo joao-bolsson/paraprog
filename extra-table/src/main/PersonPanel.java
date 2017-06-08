@@ -5,6 +5,8 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -18,6 +20,8 @@ public class PersonPanel extends JPanel {
     private final PersonTableModel model;
 
     private final JPanel panelTable;
+
+    private int rowSelected;
 
     public PersonPanel(final PersonTableModel tableModel) {
         super(new BorderLayout());
@@ -33,8 +37,28 @@ public class PersonPanel extends JPanel {
         panelTable.setVisible(true);
     }
 
+    private void prepareToEdit(final int row) {
+        Object valueAt = table.getValueAt(row, PersonTableModel.INDEX_PERSON);
+        if (valueAt instanceof Person) {
+            MainPanel.getInstance().editPerson((Person) valueAt);
+        }
+    }
+
     private JComponent createTable() {
         table = new JTable(model);
+
+        table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(final ListSelectionEvent e) {
+                if (e.getValueIsAdjusting()) { // cada clique na tabela chama esse método duas vezes
+                    int selectedRow = table.getSelectedRow();
+                    if (selectedRow >= 0) { // evita ArrayIndexOutOfBounds
+                        rowSelected = selectedRow;
+                    }
+                    prepareToEdit(rowSelected);
+                }
+            }
+        });
 
         return table;
     }

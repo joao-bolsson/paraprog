@@ -21,7 +21,7 @@ public class MainFrame {
         JFrame frame = new JFrame("Janela Principal");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        frame.add(new MainPanel());
+        frame.add(MainPanel.getInstance());
 
         frame.setMinimumSize(MIN_SIZE);
         frame.setVisible(true);
