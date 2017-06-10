@@ -1,6 +1,7 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -92,6 +93,23 @@ public class PersonTableModel extends AbstractTableModel {
             default:
                 throw new UnsupportedOperationException("Value not found.");
         }
+    }
+
+    /**
+     * Gets the person in model by identifier.
+     *
+     * @param cpf Person identifiers (CPF field).
+     * @return The person object if exists in model, else null.
+     */
+    public Person getPerson(final String cpf) {
+        Iterator<Person> iterator = lines.iterator();
+        while (iterator.hasNext()) {
+            Person person = iterator.next();
+            if (person.getCPF().equals(cpf)) {
+                return person;
+            }
+        }
+        return null;
     }
 
 }

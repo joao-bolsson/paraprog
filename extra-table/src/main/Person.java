@@ -75,6 +75,15 @@ public class Person {
         age++;
     }
 
+    /**
+     * Alternative method to edit the person age.
+     *
+     * @param newAge Person new age.
+     */
+    public void setAge(final int newAge) {
+        age = newAge;
+    }
+
     public String getCPF() {
         return cpf;
     }

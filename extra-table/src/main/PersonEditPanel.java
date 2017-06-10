@@ -10,6 +10,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -58,6 +59,29 @@ public class PersonEditPanel extends JPanel {
         txtCPF.setHorizontalAlignment(SwingConstants.RIGHT);
 
         btnApply = new JButton("Adicionar", new ImageIcon(PersonEditPanel.class.getResource("../resources/apply.png")));
+        btnApply.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                if (txtCPF.isEnabled()) {
+                    System.out.println("adiciona pessoa");
+                } else {
+                    System.out.println("edita pessoa");
+                    String cpf = txtCPF.getText();
+                    Person person = tableModel.getPerson(cpf);
+                    person.setName(txtName.getText());
+                    person.setPhone(txtPhone.getText());
+                    try {
+                        Integer age = Integer.parseInt(txtAge.getText());
+                        person.setAge(age);
+                    } catch (final NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(PersonEditPanel.this, "Erro ao editar a idade: o valor no campo precisa ser um número");
+                        System.out.println("Exception: " + ex.getMessage());
+                    }
+                    MainPanel.getInstance().repaint();
+                    resetPanel();
+                }
+            }
+        });
 
         btnReset = new JButton("Limpar", new ImageIcon(PersonEditPanel.class.getResource("../resources/cancel.png")));
         btnReset.addActionListener(new ActionListener() {
