@@ -40,7 +40,7 @@ public class PersonPanel extends JPanel {
     private void prepareToEdit(final int row) {
         Object valueAt = table.getValueAt(row, PersonTableModel.INDEX_PERSON);
         if (valueAt instanceof Person) {
-            MainPanel.getInstance().editPerson((Person) valueAt);
+            MainPanel.getInstance().editPerson((Person) valueAt, row);
         }
     }
 

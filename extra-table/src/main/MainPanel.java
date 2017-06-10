@@ -28,8 +28,8 @@ public class MainPanel extends JPanel {
 
     private PersonEditPanel personEditPanel;
 
-    public void editPerson(final Person person) {
-        System.out.println("name: " + person.getName());
+    public void editPerson(final Person person, final int row) {
+        personEditPanel.prepareToEdit(person, row);
     }
 
     private void iniComp() {
