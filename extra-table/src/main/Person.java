@@ -10,6 +10,8 @@ public class Person {
 
     private String name, phone;
 
+    private final String cpf;
+
     private int age;
 
     /**
@@ -18,11 +20,13 @@ public class Person {
      * @param name Person name.
      * @param phone Person phone.
      * @param age Person age.
+     * @param cpf Person CPF. As id.
      */
-    public Person(final String name, final String phone, final int age) {
+    public Person(final String name, final String phone, final int age, final String cpf) {
         this.name = name;
         this.phone = phone;
         this.age = age;
+        this.cpf = cpf;
     }
 
     /**
@@ -69,6 +73,10 @@ public class Person {
      */
     public void growOld() {
         age++;
+    }
+
+    public String getCPF() {
+        return cpf;
     }
 
 }

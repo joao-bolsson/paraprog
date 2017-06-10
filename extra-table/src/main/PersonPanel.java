@@ -21,8 +21,6 @@ public class PersonPanel extends JPanel {
 
     private final JPanel panelTable;
 
-    private int rowSelected;
-
     public PersonPanel(final PersonTableModel tableModel) {
         super(new BorderLayout());
         model = tableModel;
@@ -51,11 +49,7 @@ public class PersonPanel extends JPanel {
             @Override
             public void valueChanged(final ListSelectionEvent e) {
                 if (e.getValueIsAdjusting()) { // cada clique na tabela chama esse método duas vezes
-                    int selectedRow = table.getSelectedRow();
-                    if (selectedRow >= 0) { // evita ArrayIndexOutOfBounds
-                        rowSelected = selectedRow;
-                    }
-                    prepareToEdit(rowSelected);
+                    prepareToEdit(table.getSelectedRow());
                 }
             }
         });

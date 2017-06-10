@@ -13,7 +13,7 @@ public class PersonTableModel extends AbstractTableModel {
 
     private final List<Person> lines;
 
-    private final String[] columns = new String[]{"Nome", "Telefone", "Idade"};
+    private final String[] columns = new String[]{"Nome", "Telefone", "Idade", "CPF"};
 
     /**
      * Column that the person name will be showed.
@@ -29,6 +29,11 @@ public class PersonTableModel extends AbstractTableModel {
      * Column that the person age will be showed.
      */
     public static final int INDEX_AGE = 2;
+
+    /**
+     * Column to show the person identifier.
+     */
+    public static final int INDEX_CPF = 3;
 
     /**
      * Index to get the person object in row.
@@ -81,6 +86,9 @@ public class PersonTableModel extends AbstractTableModel {
 
             case INDEX_PERSON:
                 return person;
+
+            case INDEX_CPF:
+                return person.getCPF();
             default:
                 throw new UnsupportedOperationException("Value not found.");
         }

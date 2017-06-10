@@ -35,7 +35,7 @@ public class MainPanel extends JPanel {
     private void iniComp() {
         List<Person> initialList = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
-            initialList.add(new Person("João " + i, "Telefone " + i, i));
+            initialList.add(new Person("João " + i, "Telefone " + i, i, Integer.toString(i)));
         }
 
         PersonTableModel personTableModel = new PersonTableModel(initialList);

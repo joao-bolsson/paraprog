@@ -21,17 +21,13 @@ import javax.swing.SwingConstants;
  */
 public class PersonEditPanel extends JPanel {
 
-    private static final int PERSON_TO_ADD = -1;
-
     private final PersonTableModel tableModel;
 
     private static final int PADDING = 20;
 
-    private final JTextField txtName, txtPhone, txtAge;
+    private final JTextField txtName, txtPhone, txtAge, txtCPF;
 
     private final JButton btnApply, btnReset;
-
-    private int selectedRow = PERSON_TO_ADD;
 
     /**
      * Default construct to build the edit person panel.
@@ -56,6 +52,11 @@ public class PersonEditPanel extends JPanel {
         txtAge.add(new JLabel("Idade: "), BorderLayout.WEST);
         txtAge.setHorizontalAlignment(SwingConstants.RIGHT);
 
+        txtCPF = new JTextField(11);
+        txtCPF.setLayout(new BorderLayout());
+        txtCPF.add(new JLabel("CPF: "), BorderLayout.WEST);
+        txtCPF.setHorizontalAlignment(SwingConstants.RIGHT);
+
         btnApply = new JButton("Adicionar", new ImageIcon(PersonEditPanel.class.getResource("../resources/apply.png")));
 
         btnReset = new JButton("Limpar", new ImageIcon(PersonEditPanel.class.getResource("../resources/cancel.png")));
@@ -71,7 +72,8 @@ public class PersonEditPanel extends JPanel {
     }
 
     private void resetPanel() {
-        selectedRow = PERSON_TO_ADD;
+        txtCPF.setText("");
+        txtCPF.setEnabled(true);
         txtAge.setText("");
         txtName.setText("");
         txtPhone.setText("");
@@ -103,6 +105,8 @@ public class PersonEditPanel extends JPanel {
         cons.gridy++;
 
         rootPanel.add(txtAge, cons);
+        cons.gridy++;
+        rootPanel.add(txtCPF, cons);
 
         return rootPanel;
     }
@@ -128,7 +132,8 @@ public class PersonEditPanel extends JPanel {
     }
 
     public void prepareToEdit(final Person person, final int row) {
-        selectedRow = row;
+        txtCPF.setText(person.getCPF());
+        txtCPF.setEnabled(false);
         txtName.setText(person.getName());
         txtPhone.setText(person.getPhone());
         txtAge.setText(Integer.toString(person.getAge()));
