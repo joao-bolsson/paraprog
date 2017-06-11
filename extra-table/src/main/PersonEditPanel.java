@@ -175,7 +175,12 @@ public class PersonEditPanel extends JPanel {
         return rootPanel;
     }
 
-    public void prepareToEdit(final Person person, final int row) {
+    /**
+     * Method called to prepare this panel to edit a person.
+     *
+     * @param person Person to edit.
+     */
+    public void prepareToEdit(final Person person) {
         txtCPF.setText(person.getCPF());
         txtCPF.setEnabled(false);
         txtName.setText(person.getName());

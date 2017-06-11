@@ -13,7 +13,7 @@ import javax.swing.table.AbstractTableModel;
 public class PersonTableModel extends AbstractTableModel {
 
     private final List<Person> lines;
-
+    
     private final String[] columns = new String[]{"Nome", "Telefone", "Idade", "CPF"};
 
     /**

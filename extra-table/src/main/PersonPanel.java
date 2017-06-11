@@ -21,6 +21,11 @@ public class PersonPanel extends JPanel {
 
     private final JPanel panelTable;
 
+    /**
+     * Default construct to build the main panel to edit a person.
+     *
+     * @param tableModel Table model that this panel will be associated.
+     */
     public PersonPanel(final PersonTableModel tableModel) {
         super(new BorderLayout());
         model = tableModel;
@@ -38,7 +43,7 @@ public class PersonPanel extends JPanel {
     private void prepareToEdit(final int row) {
         Object valueAt = table.getValueAt(row, PersonTableModel.INDEX_PERSON);
         if (valueAt instanceof Person) {
-            MainPanel.getInstance().editPerson((Person) valueAt, row);
+            MainPanel.getInstance().editPerson((Person) valueAt);
         }
     }
 

@@ -1,8 +1,6 @@
 package main;
 
 import java.awt.BorderLayout;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JPanel;
 
 /**
@@ -13,7 +11,14 @@ import javax.swing.JPanel;
 public class MainPanel extends JPanel {
 
     private static MainPanel INSTANCE;
+    
+    private PersonEditPanel personEditPanel;
 
+    /**
+     * Class with singleton pattern.
+     *
+     * @return The only instance of this class to the all program.
+     */
     public static MainPanel getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new MainPanel();
@@ -26,19 +31,17 @@ public class MainPanel extends JPanel {
         iniComp();
     }
 
-    private PersonEditPanel personEditPanel;
-
-    public void editPerson(final Person person, final int row) {
-        personEditPanel.prepareToEdit(person, row);
+    /**
+     * Method that fires the event to edit a Person in edition panel.
+     *
+     * @param person Person to edit.
+     */
+    public void editPerson(final Person person) {
+        personEditPanel.prepareToEdit(person);
     }
 
     private void iniComp() {
-        List<Person> initialList = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            initialList.add(new Person("João " + i, "Telefone " + i, i, Integer.toString(i)));
-        }
-
-        PersonTableModel personTableModel = new PersonTableModel(initialList);
+        PersonTableModel personTableModel = new PersonTableModel();
 
         personEditPanel = new PersonEditPanel(personTableModel);
 

@@ -71,14 +71,7 @@ public class Person {
     }
 
     /**
-     * Grow old the person.
-     */
-    public void growOld() {
-        age++;
-    }
-
-    /**
-     * Alternative method to edit the person age.
+     * Method to edit the person age.
      *
      * @param newAge Person new age.
      */
@@ -86,6 +79,9 @@ public class Person {
         age = newAge;
     }
 
+    /**
+     * @return Person CPF (identifier).
+     */
     public String getCPF() {
         return cpf;
     }
