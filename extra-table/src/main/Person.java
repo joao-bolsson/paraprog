@@ -1,5 +1,7 @@
 package main;
 
+import java.util.Objects;
+
 /**
  * Class that defines a person.
  *
@@ -86,6 +88,26 @@ public class Person {
 
     public String getCPF() {
         return cpf;
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (!(obj instanceof Person)) {
+            return false;
+        }
+        if (obj == this) {
+            return true;
+        }
+
+        Person person = (Person) obj;
+        return cpf != null && person.cpf != null && cpf.equals(person.cpf);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 79 * hash + Objects.hashCode(this.cpf);
+        return hash;
     }
 
 }

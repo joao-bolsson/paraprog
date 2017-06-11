@@ -38,6 +38,8 @@ public class PersonEditPanel extends JPanel {
     public PersonEditPanel(final PersonTableModel tableModel) {
         super(new BorderLayout());
 
+        this.tableModel = tableModel;
+
         txtName = new JTextField(20);
         txtName.setLayout(new BorderLayout());
         txtName.add(new JLabel("Nome: "), BorderLayout.WEST);
@@ -63,11 +65,26 @@ public class PersonEditPanel extends JPanel {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 if (txtCPF.isEnabled()) {
-                    System.out.println("adiciona pessoa");
+                    String cpf = txtCPF.getText();
+                    if (cpf.isEmpty()) {
+                        JOptionPane.showMessageDialog(PersonEditPanel.this, "A pessoa precisa de um CPF.");
+                        return;
+                    }
+                    try {
+                        Integer age = Integer.parseInt(txtAge.getText());
+                        Person person = new Person(txtName.getText(), txtPhone.getText(), age, cpf);
+                        System.out.println("adiciona pessoa");
+                        PersonEditPanel.this.tableModel.addPerson(person);
+                        PersonEditPanel.this.tableModel.fireTableDataChanged();
+                        resetPanel();
+                    } catch (final NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(PersonEditPanel.this, "Erro: idade precisa ser um número");
+                        System.out.println("Exception: " + ex.getMessage());
+                    }
                 } else {
                     System.out.println("edita pessoa");
                     String cpf = txtCPF.getText();
-                    Person person = tableModel.getPerson(cpf);
+                    Person person = PersonEditPanel.this.tableModel.getPerson(cpf);
                     person.setName(txtName.getText());
                     person.setPhone(txtPhone.getText());
                     try {
@@ -91,7 +108,6 @@ public class PersonEditPanel extends JPanel {
             }
         });
 
-        this.tableModel = tableModel;
         iniComp();
     }
 
@@ -101,6 +117,7 @@ public class PersonEditPanel extends JPanel {
         txtAge.setText("");
         txtName.setText("");
         txtPhone.setText("");
+        btnApply.setText("Adicionar");
     }
 
     private void iniComp() {
@@ -161,6 +178,7 @@ public class PersonEditPanel extends JPanel {
         txtName.setText(person.getName());
         txtPhone.setText(person.getPhone());
         txtAge.setText(Integer.toString(person.getAge()));
+        btnApply.setText("Editar");
     }
 
 }

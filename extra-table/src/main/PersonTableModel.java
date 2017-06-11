@@ -112,4 +112,23 @@ public class PersonTableModel extends AbstractTableModel {
         return null;
     }
 
+    /**
+     * Add a person to this model.
+     *
+     * @param person Person to add.
+     */
+    public void addPerson(final Person person) {
+        lines.add(person);
+    }
+
+    /**
+     * Verifies if this model contains the person.
+     *
+     * @param person Person to verify.
+     * @return If person is already in model - true, else false.
+     */
+    public boolean containsPerson(final Person person) {
+        return lines.contains(person);
+    }
+
 }
