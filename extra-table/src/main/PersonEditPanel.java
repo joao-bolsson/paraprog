@@ -75,7 +75,9 @@ public class PersonEditPanel extends JPanel {
                         Person person = new Person(txtName.getText(), txtPhone.getText(), age, cpf);
                         System.out.println("adiciona pessoa");
                         PersonEditPanel.this.tableModel.addPerson(person);
-                        PersonEditPanel.this.tableModel.fireTableDataChanged();
+                        PersonEditPanel.this.tableModel.fireTableRowsInserted(
+                                PersonEditPanel.this.tableModel.getRowCount() - 1,
+                                PersonEditPanel.this.tableModel.getRowCount());
                         resetPanel();
                     } catch (final NumberFormatException ex) {
                         JOptionPane.showMessageDialog(PersonEditPanel.this, "Erro: idade precisa ser um número");
@@ -94,7 +96,8 @@ public class PersonEditPanel extends JPanel {
                         JOptionPane.showMessageDialog(PersonEditPanel.this, "Erro ao editar a idade: o valor no campo precisa ser um número");
                         System.out.println("Exception: " + ex.getMessage());
                     }
-                    MainPanel.getInstance().repaint();
+                    PersonEditPanel.this.tableModel.fireTableRowsUpdated(0,
+                            PersonEditPanel.this.tableModel.getRowCount());
                     resetPanel();
                 }
             }
