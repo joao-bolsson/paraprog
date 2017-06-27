@@ -12,7 +12,7 @@ public class MainPanel extends JPanel {
 
     private static MainPanel INSTANCE;
     
-    private PersonEditPanel personEditPanel;
+    private EditPanel personEditPanel;
 
     /**
      * Class with singleton pattern.
@@ -41,12 +41,12 @@ public class MainPanel extends JPanel {
     }
 
     private void iniComp() {
-        PersonTableModel personTableModel = new PersonTableModel();
+        TableModel personTableModel = new TableModel();
 
-        personEditPanel = new PersonEditPanel(personTableModel);
+        personEditPanel = new EditPanel(personTableModel);
 
         add(personEditPanel, BorderLayout.NORTH);
 
-        add(new PersonPanel(personTableModel), BorderLayout.CENTER);
+        add(new Panel(personTableModel), BorderLayout.CENTER);
     }
 }

@@ -20,9 +20,9 @@ import javax.swing.SwingConstants;
  * @author João Bolsson (joaobolsson@animati.com.br)
  * @since 2017, 06 Jun.
  */
-public class PersonEditPanel extends JPanel {
+public class EditPanel extends JPanel {
 
-    private final PersonTableModel tableModel;
+    private final TableModel tableModel;
 
     private static final int PADDING = 20;
 
@@ -35,7 +35,7 @@ public class PersonEditPanel extends JPanel {
      *
      * @param tableModel Refenced table model.
      */
-    public PersonEditPanel(final PersonTableModel tableModel) {
+    public EditPanel(final TableModel tableModel) {
         super(new BorderLayout());
 
         this.tableModel = tableModel;
@@ -60,49 +60,49 @@ public class PersonEditPanel extends JPanel {
         txtCPF.add(new JLabel("CPF: "), BorderLayout.WEST);
         txtCPF.setHorizontalAlignment(SwingConstants.RIGHT);
 
-        btnApply = new JButton("Adicionar", new ImageIcon(PersonEditPanel.class.getResource("../resources/apply.png")));
+        btnApply = new JButton("Adicionar", new ImageIcon(EditPanel.class.getResource("../resources/apply.png")));
         btnApply.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 if (txtCPF.isEnabled()) {
                     String cpf = txtCPF.getText();
                     if (cpf.isEmpty()) {
-                        JOptionPane.showMessageDialog(PersonEditPanel.this, "A pessoa precisa de um CPF.");
+                        JOptionPane.showMessageDialog(EditPanel.this, "A pessoa precisa de um CPF.");
                         return;
                     }
                     try {
                         Integer age = Integer.parseInt(txtAge.getText());
                         Person person = new Person(txtName.getText(), txtPhone.getText(), age, cpf);
                         System.out.println("adiciona pessoa");
-                        PersonEditPanel.this.tableModel.addPerson(person);
-                        PersonEditPanel.this.tableModel.fireTableRowsInserted(PersonEditPanel.this.tableModel.getRowCount() - 1,
-                                PersonEditPanel.this.tableModel.getRowCount());
+                        EditPanel.this.tableModel.addPerson(person);
+                        EditPanel.this.tableModel.fireTableRowsInserted(EditPanel.this.tableModel.getRowCount() - 1,
+                                EditPanel.this.tableModel.getRowCount());
                         resetPanel();
                     } catch (final NumberFormatException ex) {
-                        JOptionPane.showMessageDialog(PersonEditPanel.this, "Erro: idade precisa ser um número");
+                        JOptionPane.showMessageDialog(EditPanel.this, "Erro: idade precisa ser um número");
                         System.out.println("Exception: " + ex.getMessage());
                     }
                 } else {
                     System.out.println("edita pessoa");
                     String cpf = txtCPF.getText();
-                    Person person = PersonEditPanel.this.tableModel.getPerson(cpf);
+                    Person person = EditPanel.this.tableModel.getPerson(cpf);
                     person.setName(txtName.getText());
                     person.setPhone(txtPhone.getText());
                     try {
                         Integer age = Integer.parseInt(txtAge.getText());
                         person.setAge(age);
                     } catch (final NumberFormatException ex) {
-                        JOptionPane.showMessageDialog(PersonEditPanel.this, "Erro ao editar a idade: o valor no campo precisa ser um número");
+                        JOptionPane.showMessageDialog(EditPanel.this, "Erro ao editar a idade: o valor no campo precisa ser um número");
                         System.out.println("Exception: " + ex.getMessage());
                     }
-                    PersonEditPanel.this.tableModel.fireTableRowsUpdated(0,
-                            PersonEditPanel.this.tableModel.getRowCount());
+                    EditPanel.this.tableModel.fireTableRowsUpdated(0,
+                            EditPanel.this.tableModel.getRowCount());
                     resetPanel();
                 }
             }
         });
 
-        btnReset = new JButton("Limpar", new ImageIcon(PersonEditPanel.class.getResource("../resources/cancel.png")));
+        btnReset = new JButton("Limpar", new ImageIcon(EditPanel.class.getResource("../resources/cancel.png")));
         btnReset.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {

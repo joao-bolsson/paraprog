@@ -13,11 +13,11 @@ import javax.swing.event.ListSelectionListener;
  * @author João Bolsson (joaobolsson@animati.com.br)
  * @since 2017, 06 Jun.
  */
-public class PersonPanel extends JPanel {
+public class Panel extends JPanel {
 
     private JTable table;
 
-    private final PersonTableModel model;
+    private final TableModel model;
 
     private final JPanel panelTable;
 
@@ -26,7 +26,7 @@ public class PersonPanel extends JPanel {
      *
      * @param tableModel Table model that this panel will be associated.
      */
-    public PersonPanel(final PersonTableModel tableModel) {
+    public Panel(final TableModel tableModel) {
         super(new BorderLayout());
         model = tableModel;
         panelTable = new JPanel(new BorderLayout());
@@ -41,7 +41,7 @@ public class PersonPanel extends JPanel {
     }
 
     private void prepareToEdit(final int row) {
-        Object valueAt = table.getValueAt(row, PersonTableModel.INDEX_PERSON);
+        Object valueAt = table.getValueAt(row, TableModel.INDEX_PERSON);
         if (valueAt instanceof Person) {
             MainPanel.getInstance().editPerson((Person) valueAt);
         }

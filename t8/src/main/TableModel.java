@@ -10,7 +10,7 @@ import javax.swing.table.AbstractTableModel;
  * @author João Bolsson (joaobolsson@animati.com.br)
  * @since 2017, 06 Jun.
  */
-public class PersonTableModel extends AbstractTableModel {
+public class TableModel extends AbstractTableModel {
 
     private final List<Person> lines;
     
@@ -44,7 +44,7 @@ public class PersonTableModel extends AbstractTableModel {
     /**
      * Default construct to build the model (with no lines).
      */
-    public PersonTableModel() {
+    public TableModel() {
         lines = new ArrayList<>();
     }
 
@@ -53,7 +53,7 @@ public class PersonTableModel extends AbstractTableModel {
      *
      * @param lines Pre defined lines.
      */
-    public PersonTableModel(final List<Person> lines) {
+    public TableModel(final List<Person> lines) {
         this.lines = lines;
     }
 
