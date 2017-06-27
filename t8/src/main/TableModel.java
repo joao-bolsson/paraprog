@@ -12,9 +12,9 @@ import javax.swing.table.AbstractTableModel;
  */
 public class TableModel extends AbstractTableModel {
 
-    private final List<Person> lines;
+    private final List<Field> lines;
     
-    private final String[] columns = new String[]{"Nome", "Telefone", "Idade", "CPF"};
+    private final String[] columns = new String[]{"Nome", "Tipo"};
 
     /**
      * Column that the person name will be showed.
@@ -24,22 +24,12 @@ public class TableModel extends AbstractTableModel {
     /**
      * Column that the person phone will be showed.
      */
-    public static final int INDEX_PHONE = 1;
-
-    /**
-     * Column that the person age will be showed.
-     */
-    public static final int INDEX_AGE = 2;
-
-    /**
-     * Column to show the person identifier.
-     */
-    public static final int INDEX_CPF = 3;
+    public static final int INDEX_TYPE = 1;
 
     /**
      * Index to get the person object in row.
      */
-    public static final int INDEX_PERSON = -1;
+    public static final int INDEX_FIELD = -1;
 
     /**
      * Default construct to build the model (with no lines).
@@ -53,7 +43,7 @@ public class TableModel extends AbstractTableModel {
      *
      * @param lines Pre defined lines.
      */
-    public TableModel(final List<Person> lines) {
+    public TableModel(final List<Field> lines) {
         this.lines = lines;
     }
 
@@ -74,38 +64,32 @@ public class TableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Person person = lines.get(rowIndex);
+        Field field = lines.get(rowIndex);
         switch (columnIndex) {
             case INDEX_NAME:
-                return person.getName();
+                return field.getName();
 
-            case INDEX_PHONE:
-                return person.getPhone();
+            case INDEX_TYPE:
+                return field.getType().toString();
 
-            case INDEX_AGE:
-                return person.getAge();
-
-            case INDEX_PERSON:
-                return person;
-
-            case INDEX_CPF:
-                return person.getCPF();
+            case INDEX_FIELD:
+                return field;
             default:
                 throw new UnsupportedOperationException("Value not found.");
         }
     }
 
     /**
-     * Gets the person in model by identifier.
+     * Gets the field in model by identifier.
      *
-     * @param cpf Person identifiers (CPF field).
-     * @return The person object if exists in model, else null.
+     * @param id Identifier.
+     * @return True if the object exists in model, else null.
      */
-    public Person getPerson(final String cpf) {
-        Iterator<Person> iterator = lines.iterator();
+    public Field getPerson(final String id) {
+        Iterator<Field> iterator = lines.iterator();
         while (iterator.hasNext()) {
-            Person person = iterator.next();
-            if (person.getCPF().equals(cpf)) {
+            Field person = iterator.next();
+            if (person.getId().equals(id)) {
                 return person;
             }
         }
@@ -117,7 +101,7 @@ public class TableModel extends AbstractTableModel {
      *
      * @param person Person to add.
      */
-    public void addPerson(final Person person) {
+    public void add(final Field person) {
         lines.add(person);
     }
 
@@ -127,7 +111,7 @@ public class TableModel extends AbstractTableModel {
      * @param person Person to verify.
      * @return If person is already in model - true, else false.
      */
-    public boolean containsPerson(final Person person) {
+    public boolean containsPerson(final Field person) {
         return lines.contains(person);
     }
 

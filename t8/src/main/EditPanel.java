@@ -26,7 +26,7 @@ public class EditPanel extends JPanel {
 
     private static final int PADDING = 20;
 
-    private final JTextField txtName, txtPhone, txtAge, txtCPF;
+    private final JTextField txtName, txtID;
 
     private final JButton btnApply, btnReset;
 
@@ -42,59 +42,34 @@ public class EditPanel extends JPanel {
 
         txtName = new JTextField(20);
         txtName.setLayout(new BorderLayout());
-        txtName.add(new JLabel("Nome: "), BorderLayout.WEST);
+        txtName.add(new JLabel("Label: "), BorderLayout.WEST);
         txtName.setHorizontalAlignment(SwingConstants.RIGHT);
 
-        txtPhone = new JTextField(20);
-        txtPhone.setLayout(new BorderLayout());
-        txtPhone.add(new JLabel("Telefone: "), BorderLayout.WEST);
-        txtPhone.setHorizontalAlignment(SwingConstants.RIGHT);
-
-        txtAge = new JTextField(20);
-        txtAge.setLayout(new BorderLayout());
-        txtAge.add(new JLabel("Idade: "), BorderLayout.WEST);
-        txtAge.setHorizontalAlignment(SwingConstants.RIGHT);
-
-        txtCPF = new JTextField(11);
-        txtCPF.setLayout(new BorderLayout());
-        txtCPF.add(new JLabel("CPF: "), BorderLayout.WEST);
-        txtCPF.setHorizontalAlignment(SwingConstants.RIGHT);
+        txtID = new JTextField(11);
+        txtID.setLayout(new BorderLayout());
+        txtID.add(new JLabel("ID: "), BorderLayout.WEST);
+        txtID.setHorizontalAlignment(SwingConstants.RIGHT);
 
         btnApply = new JButton("Adicionar", new ImageIcon(EditPanel.class.getResource("../resources/apply.png")));
         btnApply.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                if (txtCPF.isEnabled()) {
-                    String cpf = txtCPF.getText();
+                if (txtID.isEnabled()) {
+                    String cpf = txtID.getText();
                     if (cpf.isEmpty()) {
-                        JOptionPane.showMessageDialog(EditPanel.this, "A pessoa precisa de um CPF.");
+                        JOptionPane.showMessageDialog(EditPanel.this, "O campo precisa de um ID.");
                         return;
                     }
-                    try {
-                        Integer age = Integer.parseInt(txtAge.getText());
-                        Person person = new Person(txtName.getText(), txtPhone.getText(), age, cpf);
-                        System.out.println("adiciona pessoa");
-                        EditPanel.this.tableModel.addPerson(person);
-                        EditPanel.this.tableModel.fireTableRowsInserted(EditPanel.this.tableModel.getRowCount() - 1,
-                                EditPanel.this.tableModel.getRowCount());
-                        resetPanel();
-                    } catch (final NumberFormatException ex) {
-                        JOptionPane.showMessageDialog(EditPanel.this, "Erro: idade precisa ser um número");
-                        System.out.println("Exception: " + ex.getMessage());
-                    }
+                    Field field = new Field(Field.TYPE.TEXT, txtName.getText(), "ola", txtID.getText());
+                    EditPanel.this.tableModel.add(field);
+                    EditPanel.this.tableModel.fireTableRowsInserted(EditPanel.this.tableModel.getRowCount() - 1,
+                            EditPanel.this.tableModel.getRowCount());
+                    resetPanel();
                 } else {
-                    System.out.println("edita pessoa");
-                    String cpf = txtCPF.getText();
-                    Person person = EditPanel.this.tableModel.getPerson(cpf);
+                    // edição
+                    String cpf = txtID.getText();
+                    Field person = EditPanel.this.tableModel.getPerson(cpf);
                     person.setName(txtName.getText());
-                    person.setPhone(txtPhone.getText());
-                    try {
-                        Integer age = Integer.parseInt(txtAge.getText());
-                        person.setAge(age);
-                    } catch (final NumberFormatException ex) {
-                        JOptionPane.showMessageDialog(EditPanel.this, "Erro ao editar a idade: o valor no campo precisa ser um número");
-                        System.out.println("Exception: " + ex.getMessage());
-                    }
                     EditPanel.this.tableModel.fireTableRowsUpdated(0,
                             EditPanel.this.tableModel.getRowCount());
                     resetPanel();
@@ -114,11 +89,9 @@ public class EditPanel extends JPanel {
     }
 
     private void resetPanel() {
-        txtCPF.setText("");
-        txtCPF.setEnabled(true);
-        txtAge.setText("");
+        txtID.setText("");
+        txtID.setEnabled(true);
         txtName.setText("");
-        txtPhone.setText("");
         btnApply.setText("Adicionar");
     }
 
@@ -142,14 +115,9 @@ public class EditPanel extends JPanel {
         cons.gridy = 0;
 
         rootPanel.add(txtName, cons);
-        cons.gridy++;
 
-        rootPanel.add(txtPhone, cons);
         cons.gridy++;
-
-        rootPanel.add(txtAge, cons);
-        cons.gridy++;
-        rootPanel.add(txtCPF, cons);
+        rootPanel.add(txtID, cons);
 
         return rootPanel;
     }
@@ -175,16 +143,14 @@ public class EditPanel extends JPanel {
     }
 
     /**
-     * Method called to prepare this panel to edit a person.
+     * Method called to prepare this panel to edit a field.
      *
-     * @param person Person to edit.
+     * @param fied Field to edit.
      */
-    public void prepareToEdit(final Person person) {
-        txtCPF.setText(person.getCPF());
-        txtCPF.setEnabled(false);
-        txtName.setText(person.getName());
-        txtPhone.setText(person.getPhone());
-        txtAge.setText(Integer.toString(person.getAge()));
+    public void prepareToEdit(final Field fied) {
+        txtID.setText(fied.getId());
+        txtID.setEnabled(false);
+        txtName.setText(fied.getName());
         btnApply.setText("Editar");
     }
 

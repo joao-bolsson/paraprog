@@ -48,6 +48,12 @@ public class Field {
     private TYPE type;
 
     private String name, label;
+    
+    private final String id;
+
+    public String getId() {
+        return id;
+    }
 
     public TYPE getType() {
         return type;
@@ -101,10 +107,11 @@ public class Field {
      * @param name Input name.
      * @param label Input label.
      */
-    public Field(final TYPE type, final String name, final String label) {
+    public Field(final TYPE type, final String name, final String label, final String id) {
         this.type = type;
         this.name = name;
         this.label = label;
+        this.id = id;
     }
 
     @Override
@@ -113,6 +120,7 @@ public class Field {
         hash = 97 * hash + Objects.hashCode(this.type);
         hash = 97 * hash + Objects.hashCode(this.name);
         hash = 97 * hash + Objects.hashCode(this.label);
+        hash = 97 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -128,7 +136,8 @@ public class Field {
 
         final Field field = (Field) obj;
         
-        return this.name.equals(field.name) && this.label.equals(field.label) && this.type.equals(field.type);
+        return this.name.equals(field.name) && this.label.equals(field.label) && this.type.equals(field.type)
+                && this.id.equals(field.id);
     }
 
 }

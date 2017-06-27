@@ -41,9 +41,9 @@ public class Panel extends JPanel {
     }
 
     private void prepareToEdit(final int row) {
-        Object valueAt = table.getValueAt(row, TableModel.INDEX_PERSON);
+        Object valueAt = table.getValueAt(row, TableModel.INDEX_FIELD);
         if (valueAt instanceof Person) {
-            MainPanel.getInstance().editPerson((Person) valueAt);
+            MainPanel.getInstance().editPerson((Field) valueAt);
         }
     }
 

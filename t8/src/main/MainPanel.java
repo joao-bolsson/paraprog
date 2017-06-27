@@ -32,12 +32,12 @@ public class MainPanel extends JPanel {
     }
 
     /**
-     * Method that fires the event to edit a Person in edition panel.
+     * Method that fires the event to edit a Field in edition panel.
      *
-     * @param person Person to edit.
+     * @param field Field to edit.
      */
-    public void editPerson(final Person person) {
-        personEditPanel.prepareToEdit(person);
+    public void editPerson(final Field field) {
+        personEditPanel.prepareToEdit(field);
     }
 
     private void iniComp() {
