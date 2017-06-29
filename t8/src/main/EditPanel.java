@@ -31,7 +31,8 @@ public class EditPanel extends JPanel {
 
     private final JTextField txtLabel, txtID;
 
-    private final JButton btnApply, btnReset, btnExport;
+    private final JButton btnApply, btnReset, btnExport, btnImport;
+    private final FileFilter filterXML;
 
     /**
      * Default construct to build the edit person panel.
@@ -42,6 +43,18 @@ public class EditPanel extends JPanel {
         super(new BorderLayout());
 
         this.tableModel = tableModel;
+        
+        filterXML = new FileFilter() {
+            @Override
+            public boolean accept(final File f) {
+                return f.getName().endsWith(".xml") || f.isDirectory();
+            }
+
+            @Override
+            public String getDescription() {
+                return "XML Files";
+            }
+        };
 
         txtLabel = new JTextField(20);
         txtLabel.setLayout(new BorderLayout());
@@ -72,8 +85,8 @@ public class EditPanel extends JPanel {
                 } else {
                     // edição
                     String cpf = txtID.getText();
-                    Field person = EditPanel.this.tableModel.getPerson(cpf);
-                    person.setName(txtLabel.getText());
+                    Field field = EditPanel.this.tableModel.getPerson(cpf);
+                    field.setLabel(txtLabel.getText());
                     EditPanel.this.tableModel.fireTableRowsUpdated(0,
                             EditPanel.this.tableModel.getRowCount());
                     resetPanel();
@@ -89,26 +102,38 @@ public class EditPanel extends JPanel {
             }
         });
 
-        btnExport = new JButton("Exportar Projeto",
+        btnExport = new JButton("Exportar",
                 new ImageIcon(EditPanel.class.getResource("../resources/export.png")));
+        
+        btnImport = new JButton("Importar",
+                new ImageIcon(EditPanel.class.getResource("../resources/import.png")));
 
         addExportListener();
+        
+        addImportListener();
 
         iniComp();
     }
+    
+    private void addImportListener() {
+        btnImport.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                JFileChooser chooser = new JFileChooser();
+                chooser.setFileFilter(filterXML);
+                chooser.setDialogTitle("Importar Projeto");
+                int retorno = chooser.showSaveDialog(EditPanel.this);
+                if (retorno == JFileChooser.APPROVE_OPTION) {
+                    String path = chooser.getSelectedFile().getAbsolutePath();
+                    tableModel.importPreferences(path);
+                    // sempre que importar atalhos, reseta o painel de edição
+                    resetPanel();
+                }
+            }
+        });
+    }
 
     private void addExportListener() {
-        FileFilter filterXML = new FileFilter() {
-            @Override
-            public boolean accept(final File f) {
-                return f.getName().endsWith(".xml") || f.isDirectory();
-            }
-
-            @Override
-            public String getDescription() {
-                return "XML Files";
-            }
-        };
         btnExport.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
@@ -195,6 +220,8 @@ public class EditPanel extends JPanel {
         btnPanel.add(btnApply, cons);
         cons.gridx++;
         btnPanel.add(btnExport, cons);
+        cons.gridx++;
+        btnPanel.add(btnImport, cons);
 
         rootPanel.add(btnPanel, BorderLayout.EAST);
 
@@ -209,7 +236,7 @@ public class EditPanel extends JPanel {
     public void prepareToEdit(final Field fied) {
         txtID.setText(fied.getId());
         txtID.setEnabled(false);
-        txtLabel.setText(fied.getName());
+        txtLabel.setText(fied.getLabel());
         btnApply.setText("Editar");
     }
 

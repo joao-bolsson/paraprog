@@ -1,6 +1,7 @@
 package main;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -9,6 +10,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import org.w3c.dom.DOMException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -21,7 +30,7 @@ public class TableModel extends AbstractTableModel {
 
     private final String[] columns = new String[]{"Label", "Nome", "Tipo", "ID"};
 
-    private static final String NODE_SHORTCUT = "Generator";
+    private static final String MAIN_NODE = "Generator";
 
     public static final int INDEX_LABEL = 0, INDEX_NAME = 1, INDEX_TYPE = 2, INDEX_ID = 3, INDEX_FIELD = -1;
 
@@ -125,7 +134,7 @@ public class TableModel extends AbstractTableModel {
             Writer w = new OutputStreamWriter(new FileOutputStream(path), "UTF-8");
             try (BufferedWriter out = new BufferedWriter(w)) {
                 out.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-                out.write("<" + NODE_SHORTCUT + ">");
+                out.write("<" + MAIN_NODE + ">");
 
                 for (Field field : lines) {
                     String strNode = "<" + field.getId() + ">";
@@ -137,9 +146,64 @@ public class TableModel extends AbstractTableModel {
                     out.write(strNode);
                 }
 
-                out.write("</" + NODE_SHORTCUT + ">");
+                out.write("</" + MAIN_NODE + ">");
             }
         } catch (final IOException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        }
+    }
+
+    /**
+     * Method to import shortcuts preferences.
+     *
+     * @param path Path to the file with preferences.
+     */
+    public void importPreferences(final String path) {
+        try {
+            File fXmlFile = new File(path);
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(fXmlFile);
+            doc.getDocumentElement().normalize();
+            String nodeName = doc.getDocumentElement().getNodeName();
+            if (!nodeName.equals(MAIN_NODE)) {
+                return;
+            }
+            if (doc.getDocumentElement().hasChildNodes()) {
+                NodeList childNodes = doc.getDocumentElement().getChildNodes();
+                ArrayList<Field> project = new ArrayList<>();
+                for (int i = 0; i < childNodes.getLength(); i++) {
+                    Node nodeField = childNodes.item(i);
+                    String id = nodeField.getNodeName();
+
+                    Field field = new Field(Field.TYPE.TEXT, id, "", id);
+                    NodeList attributes = nodeField.getChildNodes();
+                    for (int j = 0; j < attributes.getLength(); j++) {
+                        Node attr = attributes.item(j);
+                        switch (attr.getNodeName()) {
+                            case "type":
+                                Field.TYPE type = Field.TYPE.lookup(attr.getTextContent());
+                                field.setType(type);
+                                break;
+                            case "label":
+                                field.setLabel(attr.getTextContent());
+                                break;
+                            case "name":
+                                field.setName(attr.getTextContent());
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    project.add(field);
+                }
+                if (project.size() > 0) {
+                    lines.clear();
+                    lines.addAll(project);
+                    fireTableDataChanged();
+                }
+            }
+        } catch (ParserConfigurationException | SAXException | IOException | DOMException ex) {
             System.out.println("Error: " + ex.getMessage());
         }
     }
