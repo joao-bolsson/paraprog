@@ -134,19 +134,19 @@ public class TableModel extends AbstractTableModel {
             Writer w = new OutputStreamWriter(new FileOutputStream(path), "UTF-8");
             try (BufferedWriter out = new BufferedWriter(w)) {
                 out.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-                out.write("<" + MAIN_NODE + ">");
+                NodeCC mainNode = new NodeCC(MAIN_NODE);
 
                 for (Field field : lines) {
-                    String strNode = "<" + field.getId() + ">";
-                    strNode += "<type>" + field.getType().toString() + "</type>";
-                    strNode += "<label>" + field.getLabel() + "</label>";
-                    strNode += "<name>" + field.getName() + "</name>";
+                    NodeCC nodeField = new NodeCC(field.getId());
 
-                    strNode += "</" + field.getId() + ">";
-                    out.write(strNode);
+                    nodeField.add(new NodeCC("type", field.getType().toString()));
+                    nodeField.add(new NodeCC("label", field.getLabel()));
+                    nodeField.add(new NodeCC("name", field.getName()));
+
+                    mainNode.add(nodeField);
                 }
 
-                out.write("</" + MAIN_NODE + ">");
+                out.write(mainNode.toString());
             }
         } catch (final IOException ex) {
             System.out.println("Error: " + ex.getMessage());
