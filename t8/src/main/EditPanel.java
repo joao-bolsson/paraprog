@@ -6,14 +6,17 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.filechooser.FileFilter;
 
 /**
  *
@@ -26,9 +29,9 @@ public class EditPanel extends JPanel {
 
     private static final int PADDING = 20;
 
-    private final JTextField txtName, txtID;
+    private final JTextField txtLabel, txtID;
 
-    private final JButton btnApply, btnReset;
+    private final JButton btnApply, btnReset, btnExport;
 
     /**
      * Default construct to build the edit person panel.
@@ -40,10 +43,10 @@ public class EditPanel extends JPanel {
 
         this.tableModel = tableModel;
 
-        txtName = new JTextField(20);
-        txtName.setLayout(new BorderLayout());
-        txtName.add(new JLabel("Label: "), BorderLayout.WEST);
-        txtName.setHorizontalAlignment(SwingConstants.RIGHT);
+        txtLabel = new JTextField(20);
+        txtLabel.setLayout(new BorderLayout());
+        txtLabel.add(new JLabel("Label: "), BorderLayout.WEST);
+        txtLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 
         txtID = new JTextField(11);
         txtID.setLayout(new BorderLayout());
@@ -60,7 +63,8 @@ public class EditPanel extends JPanel {
                         JOptionPane.showMessageDialog(EditPanel.this, "O campo precisa de um ID.");
                         return;
                     }
-                    Field field = new Field(Field.TYPE.TEXT, txtName.getText(), "ola", txtID.getText());
+                    String id = txtID.getText();
+                    Field field = new Field(Field.TYPE.TEXT, id, txtLabel.getText(), id);
                     EditPanel.this.tableModel.add(field);
                     EditPanel.this.tableModel.fireTableRowsInserted(EditPanel.this.tableModel.getRowCount() - 1,
                             EditPanel.this.tableModel.getRowCount());
@@ -69,7 +73,7 @@ public class EditPanel extends JPanel {
                     // edição
                     String cpf = txtID.getText();
                     Field person = EditPanel.this.tableModel.getPerson(cpf);
-                    person.setName(txtName.getText());
+                    person.setName(txtLabel.getText());
                     EditPanel.this.tableModel.fireTableRowsUpdated(0,
                             EditPanel.this.tableModel.getRowCount());
                     resetPanel();
@@ -85,13 +89,66 @@ public class EditPanel extends JPanel {
             }
         });
 
+        btnExport = new JButton("Exportar Projeto",
+                new ImageIcon(EditPanel.class.getResource("../resources/export.png")));
+
+        addExportListener();
+
         iniComp();
+    }
+
+    private void addExportListener() {
+        FileFilter filterXML = new FileFilter() {
+            @Override
+            public boolean accept(final File f) {
+                return f.getName().endsWith(".xml") || f.isDirectory();
+            }
+
+            @Override
+            public String getDescription() {
+                return "XML Files";
+            }
+        };
+        btnExport.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                JFileChooser chooser = new JFileChooser() {
+                    @Override
+                    public void approveSelection() {
+                        File file = getSelectedFile();
+                        if (!file.getName().endsWith(".xml")) {
+                            file = new File(file.getAbsolutePath() + ".xml");
+                        }
+                        setSelectedFile(file);
+                        if (file.exists()) {
+                            int confirm = JOptionPane.showConfirmDialog(
+                                    getParent(),
+                                    file.getName() + " já existe",
+                                    "Confirmar",
+                                    JOptionPane.YES_NO_OPTION);
+                            if (confirm == JOptionPane.YES_OPTION) {
+                                super.approveSelection();
+                            }
+                        } else {
+                            super.approveSelection();
+                        }
+                    }
+                };
+                chooser.setFileFilter(filterXML);
+                chooser.setDialogTitle("Salvar");
+                int retorno = chooser.showSaveDialog(EditPanel.this);
+                if (retorno == JFileChooser.APPROVE_OPTION) {
+                    tableModel.exportProject(chooser.getSelectedFile().getAbsolutePath());
+                }
+            }
+        });
+
     }
 
     private void resetPanel() {
         txtID.setText("");
         txtID.setEnabled(true);
-        txtName.setText("");
+        txtLabel.setText("");
         btnApply.setText("Adicionar");
     }
 
@@ -114,7 +171,7 @@ public class EditPanel extends JPanel {
         cons.gridx = 0;
         cons.gridy = 0;
 
-        rootPanel.add(txtName, cons);
+        rootPanel.add(txtLabel, cons);
 
         cons.gridy++;
         rootPanel.add(txtID, cons);
@@ -136,6 +193,8 @@ public class EditPanel extends JPanel {
         btnPanel.add(btnReset, cons);
         cons.gridx++;
         btnPanel.add(btnApply, cons);
+        cons.gridx++;
+        btnPanel.add(btnExport, cons);
 
         rootPanel.add(btnPanel, BorderLayout.EAST);
 
@@ -150,7 +209,7 @@ public class EditPanel extends JPanel {
     public void prepareToEdit(final Field fied) {
         txtID.setText(fied.getId());
         txtID.setEnabled(false);
-        txtName.setText(fied.getName());
+        txtLabel.setText(fied.getName());
         btnApply.setText("Editar");
     }
 

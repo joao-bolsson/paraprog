@@ -42,7 +42,7 @@ public class Panel extends JPanel {
 
     private void prepareToEdit(final int row) {
         Object valueAt = table.getValueAt(row, TableModel.INDEX_FIELD);
-        if (valueAt instanceof Person) {
+        if (valueAt instanceof Field) {
             MainPanel.getInstance().editPerson((Field) valueAt);
         }
     }
