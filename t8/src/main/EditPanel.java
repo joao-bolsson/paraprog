@@ -6,7 +6,14 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -17,6 +24,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileFilter;
+import org.apache.commons.io.FileUtils;
 
 /**
  *
@@ -31,8 +39,12 @@ public class EditPanel extends JPanel {
 
     private final JTextField txtLabel, txtID;
 
-    private final JButton btnApply, btnReset, btnExport, btnImport;
+    private final JButton btnApply, btnReset, btnExport, btnImport, btnCreate;
     private final FileFilter filterXML;
+
+    private File file, template;
+
+    private static final String NEW_HTML = "index.html";
 
     /**
      * Default construct to build the edit person panel.
@@ -43,7 +55,7 @@ public class EditPanel extends JPanel {
         super(new BorderLayout());
 
         this.tableModel = tableModel;
-        
+
         filterXML = new FileFilter() {
             @Override
             public boolean accept(final File f) {
@@ -104,17 +116,74 @@ public class EditPanel extends JPanel {
 
         btnExport = new JButton("Exportar",
                 new ImageIcon(EditPanel.class.getResource("../resources/export.png")));
-        
+
         btnImport = new JButton("Importar",
                 new ImageIcon(EditPanel.class.getResource("../resources/import.png")));
 
+        btnCreate = new JButton("Criar",
+                new ImageIcon(EditPanel.class.getResource("../resources/create.png")));
+
         addExportListener();
-        
+
         addImportListener();
+
+        addCreateListener();
 
         iniComp();
     }
-    
+
+    private void createFile() throws IOException, URISyntaxException {
+        URL resource = EditPanel.class.getResource("../resources/template.html");
+        template = new File(resource.toURI());
+        file = new File(template.getParent(), NEW_HTML);
+        FileUtils.copyFile(template, file);
+        System.out.print("file created: " + file + "\n");
+    }
+
+    private void addCreateListener() {
+        btnCreate.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                try {
+                    createFile();
+
+                    BufferedReader br = null;
+                    BufferedWriter bw = null;
+                    try {
+                        br = new BufferedReader(new FileReader(template));
+                        bw = new BufferedWriter(new FileWriter(file));
+                        String line;
+                        while ((line = br.readLine()) != null) {
+                            if (line.contains(">>>1<<<")) {
+                                line = line.replace(">>>1<<<", "<title>Título (TODO)</title>");
+                            }
+                            bw.write(line + "\n");
+                        }
+                    } catch (final IOException ex) {
+                        System.out.println("Error on writing in file: " + ex.getMessage());
+                    } finally {
+                        try {
+                            if (br != null) {
+                                br.close();
+                            }
+                        } catch (final IOException ex) {
+                            System.out.println("Error on trying close the file: " + ex.getMessage());
+                        }
+                        try {
+                            if (bw != null) {
+                                bw.close();
+                            }
+                        } catch (final IOException ex) {
+                            System.out.println("Error on trying close the file: " + ex.getMessage());
+                        }
+                    }
+                } catch (final IOException | URISyntaxException ex) {
+                    System.out.println("Error on create file: " + ex.getMessage());
+                }
+            }
+        });
+    }
+
     private void addImportListener() {
         btnImport.addActionListener(new ActionListener() {
             @Override
@@ -222,6 +291,8 @@ public class EditPanel extends JPanel {
         btnPanel.add(btnExport, cons);
         cons.gridx++;
         btnPanel.add(btnImport, cons);
+        cons.gridx++;
+        btnPanel.add(btnCreate, cons);
 
         rootPanel.add(btnPanel, BorderLayout.EAST);
 
