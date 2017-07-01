@@ -132,10 +132,32 @@ public class EditPanel extends JPanel {
         iniComp();
     }
 
+    private String getPathToFile() {
+        String path = NEW_HTML; // never must keep this value
+        JFileChooser chooser = new JFileChooser();
+        chooser.setFileFilter(new FileFilter() {
+            @Override
+            public boolean accept(final File f) {
+                return f.getName().endsWith(".html") || f.isDirectory();
+            }
+
+            @Override
+            public String getDescription() {
+                return "HTML Files";
+            }
+        });
+        chooser.setDialogTitle("Gerar Arquivo");
+        int retorno = chooser.showSaveDialog(EditPanel.this);
+        if (retorno == JFileChooser.APPROVE_OPTION) {
+            path = chooser.getSelectedFile().getAbsolutePath();
+        }
+        return path;
+    }
+
     private void createFile() throws IOException, URISyntaxException {
         URL resource = EditPanel.class.getResource("../resources/template.html");
         template = new File(resource.toURI());
-        file = new File(template.getParent(), NEW_HTML);
+        file = new File(getPathToFile());
         FileUtils.copyFile(template, file);
         System.out.print("file created: " + file + "\n");
     }
