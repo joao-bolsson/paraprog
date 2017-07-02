@@ -14,6 +14,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -162,6 +163,74 @@ public class EditPanel extends JPanel {
         System.out.print("file created: " + file + "\n");
     }
 
+    private String getSaveFunction() {
+        StringBuilder builder = new StringBuilder("function save() {\nvar seq=$('#seq').text();\n");
+        builder.append("if ( isNaN(seq) ) { seq=0; }\nvar key=formId+\"_\"+seq;\nvar object={\n");
+
+        List<Field> lines = tableModel.getLines();
+        for (Field field : lines) {
+            builder.append("\"").append(field.getId()).append("\": $(\"#").append(field.getId()).append("\").val(),\n");
+        }
+        builder.append("}\nlocalStorage.setItem(key, JSON.stringify(object));\n}\n");
+        return builder.toString();
+    }
+
+    private String getOnclickTBody() {
+        StringBuilder builder = new StringBuilder("$('#table tbody').on( 'click', '.glyphicon-edit', function () {\n");
+        builder.append("$('#list').hide();\n");
+        builder.append("var rows = $(this).parents('tr').children();\n");
+        builder.append("$('#seq').text(rows[0].innerHTML);\n");
+
+        List<Field> lines = tableModel.getLines();
+        int i = 0;
+        for (Field field : lines) {
+            builder.append("$('#").append(field.getId()).append("').val(rows[").append(i + 2).append("].innerHTML);\n");
+            i++;
+        }
+        builder.append("$('#formID').show()\n;} );");
+
+        return builder.toString();
+    }
+
+    private String getTableConstruct() {
+        StringBuilder builder = new StringBuilder("oTable=$('#table').dataTable({\n");
+        builder.append("\"data\": dataSet,\n");
+        builder.append("\"columns\": [\n");
+        builder.append("{ \"title\": \"Seq\", \"class\": \"center\" },\n");
+        builder.append("{ \"title\": \"\", \"class\": \"center\" },\n");
+
+        List<Field> lines = tableModel.getLines();
+        for (Field field : lines) {
+            builder.append("{ \"title\": \"").append(field.getLabel()).append("\"},\n");
+        }
+
+        return builder.toString();
+    }
+
+    private String getDataSets() {
+        StringBuilder builder = new StringBuilder("dataSet[seq]=[index,icons");
+        List<Field> lines = tableModel.getLines();
+        for (Field field : lines) {
+            builder.append(", object.").append(field.getId());
+        }
+        builder.append("];\n");
+        return builder.toString();
+    }
+
+    private String getFields() {
+        StringBuilder builder = new StringBuilder();
+        List<Field> lines = tableModel.getLines();
+        for (Field field : lines) {
+            builder.append("<div class=\"form-group\">\n");
+            builder.append("<label for=\"").append(field.getId()).append("\" class=\"col-sm-2 control-label\">").append(field.getLabel()).append("</label>\n");
+            builder.append("<div class=\"col-sm-6\">\n");
+            builder.append("<input type=\"text\" class=\"form-control validate[required]\" id=\"").append(field.getId()).append("\" placeholder=\"").append(field.getLabel()).append("\">\n");
+            builder.append("</div>\n");
+            builder.append("</div>\n");
+        }
+        return builder.toString();
+    }
+
     private void addCreateListener() {
         btnCreate.addActionListener(new ActionListener() {
             @Override
@@ -178,7 +247,20 @@ public class EditPanel extends JPanel {
                         while ((line = br.readLine()) != null) {
                             if (line.contains(">>>1<<<")) {
                                 line = line.replace(">>>1<<<", "<title>Título (TODO)</title>");
+                            } else if (line.contains(">>>2<<<")) {
+                                line = line.replace(">>>2<<<", "<h1>Título (TODO)</h1>");
+                            } else if (line.contains(">>>3<<<")) {
+                                line = line.replace(">>>3<<<", getFields());
+                            } else if (line.contains(">>>4<<<")) {
+                                line = line.replace(">>>4<<<", getDataSets());
+                            } else if (line.contains(">>>5<<<")) {
+                                line = line.replace(">>>5<<<", getTableConstruct());
+                            } else if (line.contains(">>>6<<<")) {
+                                line = line.replace(">>>6<<<", getOnclickTBody());
+                            } else if (line.contains(">>>7<<<")) {
+                                line = line.replace(">>>7<<<", getSaveFunction());
                             }
+
                             bw.write(line + "\n");
                         }
                     } catch (final IOException ex) {

@@ -42,6 +42,13 @@ public class TableModel extends AbstractTableModel {
     }
 
     /**
+     * @return A copy of the lines of this model.
+     */
+    public List<Field> getLines() {
+        return new ArrayList<>(lines);
+    }
+
+    /**
      * Construct to build the model.
      *
      * @param lines Pre defined lines.
