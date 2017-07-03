@@ -49,6 +49,21 @@ public class TableModel extends AbstractTableModel {
     }
 
     /**
+     * Verifiy if a field with id already exist.
+     *
+     * @param id Given id.
+     * @return true if exists, else - false.
+     */
+    public boolean idExists(final String id) {
+        for (Field field : lines) {
+            if (field.getId().equals(id)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Construct to build the model.
      *
      * @param lines Pre defined lines.

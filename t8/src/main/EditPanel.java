@@ -84,12 +84,14 @@ public class EditPanel extends JPanel {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 if (txtID.isEnabled()) {
-                    String cpf = txtID.getText();
-                    if (cpf.isEmpty()) {
+                    String id = txtID.getText();
+                    if (id.isEmpty()) {
                         JOptionPane.showMessageDialog(EditPanel.this, "O campo precisa de um ID.");
                         return;
+                    } else if (EditPanel.this.tableModel.idExists(id)) {
+                        JOptionPane.showMessageDialog(EditPanel.this, "Esse id já existe para outro componente.");
+                        return;
                     }
-                    String id = txtID.getText();
                     Field field = new Field(Field.TYPE.TEXT, id, txtLabel.getText(), id);
                     EditPanel.this.tableModel.add(field);
                     EditPanel.this.tableModel.fireTableRowsInserted(EditPanel.this.tableModel.getRowCount() - 1,
@@ -97,8 +99,8 @@ public class EditPanel extends JPanel {
                     resetPanel();
                 } else {
                     // edição
-                    String cpf = txtID.getText();
-                    Field field = EditPanel.this.tableModel.getPerson(cpf);
+                    String id = txtID.getText();
+                    Field field = EditPanel.this.tableModel.getPerson(id);
                     field.setLabel(txtLabel.getText());
                     EditPanel.this.tableModel.fireTableRowsUpdated(0,
                             EditPanel.this.tableModel.getRowCount());
